@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
-  m_Name: Keywoird
+  m_Name: Keyword Handling
   m_EditorClassIdentifier: Assembly-CSharp::KeywordScriptableObject
-  keyword: Keywoird
+  keyword: Keyword Handling
   wordings:
-  - Keywoird
-  - Keywoirds
+  - Keyword Handling
   icon: 
-  tooltipText: Keywords are temrs you that become underlined in texts and have a
-    tooltip when hovered
+  tooltipText: The thing can't handle multi-word keywords currently
