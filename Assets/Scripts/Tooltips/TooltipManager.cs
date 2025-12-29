@@ -16,7 +16,7 @@ public class TooltipManager : MonoBehaviour
 	[SerializeField] int borderSize = 8; // Size of the border around the tooltip
 	[SerializeField] int edgeOfScreenMargin = 15; // Margin from the edge of the screen */
 	[SerializeField] float tipNudge = 100f;
-	[SerializeField] Vector3 tooltipScale;
+    [SerializeField] float tooltipSizeDownwardFactor = 0.3f;
 
 	[Serializable]
 	public class Tooltip
@@ -104,7 +104,7 @@ public class TooltipManager : MonoBehaviour
 		thisTooltip.tooltipWindow.gameObject.SetActive(true);
 		thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler);
 
-		float tipDownDistance = (thisTooltip.tooltipWindow.tooltipWindowHeight * 0.5f) + tipNudge;
+		float tipDownDistance = (thisTooltip.tooltipWindow.tooltipWindowHeight * tooltipSizeDownwardFactor) + tipNudge;
 		Debug.Log("Tip Down Distance: " + tipDownDistance);
 		if (Application.isMobilePlatform)
 		{
@@ -114,7 +114,7 @@ public class TooltipManager : MonoBehaviour
 		{
 			thisTooltip.tooltipWindow.transform.position = new Vector2(location.x, location.y - tipDownDistance);
 		}
-        Debug.Log("Tooltip Position: " + thisTooltip.tooltipWindow.transform.position.y + (thisTooltip.tooltipWindow.tooltipWindowHeight * 0.5f)); 
+        Debug.Log("Tooltip Position: " + thisTooltip.tooltipWindow.transform.position.y + (thisTooltip.tooltipWindow.tooltipWindowHeight * tooltipSizeDownwardFactor)); 
 	}
 
 	public void RemoveCallersTooltip(TooltipTrigger caller)

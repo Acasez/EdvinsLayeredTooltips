@@ -150,7 +150,7 @@ MonoBehaviour:
     active: 0
     locked: 0
   keywordHandler: {fileID: 7148879821461226262}
-  tipNudge: 100
+  tipNudge: 50
   tooltipScale: {x: 1, y: 1, z: 1}
 --- !u!1001 &1995254251847860522
 PrefabInstance:
