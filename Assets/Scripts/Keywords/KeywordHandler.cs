@@ -14,7 +14,7 @@ public class KeywordHandler : MonoBehaviour
         TestKeywords();
     }
 
-	public void TestKeywords()
+    public void TestKeywords()
 	{
 		for (int keywordIndex = 0; keywordIndex < keywords.Count; keywordIndex++)
 		{

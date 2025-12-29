@@ -5,18 +5,26 @@ using UnityEngine.EventSystems;
 
 public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitHandler
 {
-	public TextMeshProUGUI textMeshPro;
-	public TooltipTrigger trigger;
-	private int lastLinkIndex = -1;
+    [Header("Values")]
+    private int lastLinkIndex = -1;
 
-	[SerializeField] public List<KeywordScriptableObject> keywords;
+    [Header("Local References")]
+    [SerializeField] TextMeshProUGUI textMeshPro;
+    [SerializeField] TooltipTrigger trigger;
 
-	void Awake()
-	{
-		textMeshPro = GetComponent<TextMeshProUGUI>();
-	}
+    [Header("References")]
+    [SerializeField] TooltipManager tooltipManager;
 
-	public void OnPointerMove(PointerEventData eventData)
+    private void Start()
+    {
+        tooltipManager = FindAnyObjectByType<TooltipManager>();
+        if (tooltipManager == null)
+        {
+            Debug.LogWarning("No tooltipManager!");
+        }
+    }
+
+    public void OnPointerMove(PointerEventData eventData)
 	{
 		if (trigger.HasToolTip())
 		{
@@ -53,7 +61,9 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
 
 	private string GetKeywordDescription(string linkedWord)
 	{
-		for (int i = 0; i < keywords.Count; i++)
+        List<KeywordScriptableObject> keywords = tooltipManager.GetKeywords();
+
+        for (int i = 0; i < keywords.Count; i++)
 		{
 			if (keywords[i].tooltipText != null)
 			{

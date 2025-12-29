@@ -27,7 +27,12 @@ public class TooltipManager : MonoBehaviour
 		public bool locked;
 	}
 
-	private void Update()
+    public List<KeywordScriptableObject> GetKeywords()
+    {
+        return keywordHandler.keywords;
+    }
+
+    private void Update()
 	{
 		if (Input.GetMouseButtonDown(2))
 		{
