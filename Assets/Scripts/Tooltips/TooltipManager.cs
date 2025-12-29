@@ -114,6 +114,7 @@ public class TooltipManager : MonoBehaviour
 		{
 			thisTooltip.tooltipWindow.transform.position = new Vector2(location.x, location.y - tipDownDistance);
 		}
+        Debug.Log("Tooltip Position: " + thisTooltip.tooltipWindow.transform.position.y + (thisTooltip.tooltipWindow.tooltipWindowHeight * 0.5f)); 
 	}
 
 	public void RemoveCallersTooltip(TooltipTrigger caller)
