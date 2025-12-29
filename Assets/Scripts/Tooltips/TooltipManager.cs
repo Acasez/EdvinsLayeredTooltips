@@ -50,6 +50,7 @@ public class TooltipManager : MonoBehaviour
 		{
 			tooltip.locked = false;
 			tooltip.tooltipWindow.DisplayLockTooltip(false);
+			//If not on tooltip, remove it
 		}
 		else
 		{
