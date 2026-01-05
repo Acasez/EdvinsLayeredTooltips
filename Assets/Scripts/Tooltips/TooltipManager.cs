@@ -3,12 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.FilePathAttribute;
 
 public class TooltipManager : MonoBehaviour 
 {
-	[SerializeField] List<Tooltip> tooltips;
+    [Header("Settings")]
+    [SerializeField] List<Tooltip> tooltips;
+	[SerializeField] bool mobile;
 
-	[Header("Keywords")]
+    [Header("Canvas")]
+    [SerializeField] Canvas canvas;
+	[SerializeField] RectTransform canvasRectTransform;
+
+    [Header("Keywords")]
 	[SerializeField] KeywordHandler keywordHandler;
 
 	[Header("Tooltip Text Settings")]
@@ -31,6 +38,20 @@ public class TooltipManager : MonoBehaviour
     public List<KeywordScriptableObject> GetKeywords()
     {
         return keywordHandler.keywords;
+    }
+
+    private void Start()
+    {
+        canvas = GetComponentInChildren<Canvas>();
+		canvasRectTransform = canvas.GetComponent<RectTransform>();
+		if (Application.isMobilePlatform)
+		{
+			mobile = true;
+		}
+		else
+		{
+			mobile = false;
+		}
     }
 
     private void Update()
@@ -106,20 +127,41 @@ public class TooltipManager : MonoBehaviour
 		thisTooltip.tooltipWindow.gameObject.SetActive(true);
 		thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler);
 
-		float tipDownDistance = (thisTooltip.tooltipWindow.tooltipWindowHeight * tooltipSizeDownwardFactor) + tipNudge;
-		Debug.Log("Tip Down Distance: " + tipDownDistance);
-		if (Application.isMobilePlatform)
-		{
-			thisTooltip.tooltipWindow.transform.position = new Vector2(location.x, location.y + tipDownDistance);
-		}
-		else
-		{
-			thisTooltip.tooltipWindow.transform.position = new Vector2(location.x, location.y - tipDownDistance);
-		}
-        Debug.Log("Tooltip Position: " + thisTooltip.tooltipWindow.transform.position.y + (thisTooltip.tooltipWindow.tooltipWindowHeight * tooltipSizeDownwardFactor)); 
+		RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
+        Vector2 clampedPos = GetPositionInsideCanvas(tooltipRect, location);
+        thisTooltip.tooltipWindow.transform.position = new Vector2(clampedPos.x, clampedPos.y); 
 	}
 
-	public void RemoveCallersTooltip(TooltipTrigger caller)
+    private Vector2 GetPositionInsideCanvas(RectTransform tooltipRect, Vector2 location)
+    {
+        // Calculate tooltip size
+        float tooltipWidth = tooltipRect.rect.width;
+        float tooltipHeight = tooltipRect.rect.height;
+
+        // Calculate the desired position
+        float tipDownDistance = (tooltipHeight * tooltipSizeDownwardFactor) + tipNudge;
+        if (mobile) tipDownDistance *= -1f;
+        Vector2 desiredPosition = new Vector2(location.x, location.y - tipDownDistance);
+
+        // Get canvas bounds
+        Vector2 canvasMin = canvasRectTransform.rect.min;
+        Vector2 canvasMax = canvasRectTransform.rect.max;
+
+        // Calculate min/max allowed positions (accounting for tooltip size)
+        float minX = canvasMin.x + tooltipWidth * tooltipRect.pivot.x;
+        float maxX = canvasMax.x - tooltipWidth * (1 - tooltipRect.pivot.x);
+        float minY = canvasMin.y + tooltipHeight * tooltipRect.pivot.y;
+        float maxY = canvasMax.y - tooltipHeight * (1 - tooltipRect.pivot.y);
+
+        // Clamp
+        float clampedX = Mathf.Clamp(desiredPosition.x, minX, maxX);
+        float clampedY = Mathf.Clamp(desiredPosition.y, minY, maxY);
+
+        return new Vector2(clampedX, clampedY);
+    }
+
+
+    public void RemoveCallersTooltip(TooltipTrigger caller)
 	{
 		Tooltip thisTooltip = GetCallersTooltip(caller);
 
