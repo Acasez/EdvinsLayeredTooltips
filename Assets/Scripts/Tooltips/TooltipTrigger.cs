@@ -55,7 +55,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	{
 		yield return new WaitForSeconds(0.5f);
 		DestroyPreviousTooltip();
-		CreateTooltip(null, transform.position);
+		CreateTooltip(null, Input.mousePosition);
 	}
 
 	public void CreateTooltip(string message, Vector3 location)

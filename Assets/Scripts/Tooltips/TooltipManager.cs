@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TooltipManager : MonoBehaviour 
 {
@@ -50,7 +51,7 @@ public class TooltipManager : MonoBehaviour
 		{
 			tooltip.locked = false;
 			tooltip.tooltipWindow.DisplayLockTooltip(false);
-			//If not on tooltip, remove it
+			RemoveTooltip(tooltip);	
 		}
 		else
 		{
@@ -122,17 +123,22 @@ public class TooltipManager : MonoBehaviour
 	{
 		Tooltip thisTooltip = GetCallersTooltip(caller);
 
-		if (thisTooltip == null) { return; };
-		if (thisTooltip.locked)
-		{
-			Debug.Log("Tooltip locked");
-			return;
-		}
-
-		thisTooltip.active = false;
-		thisTooltip.trigger = null;
-		thisTooltip.tooltipWindow.gameObject.SetActive(false);
+		RemoveTooltip(thisTooltip);
 	}
+
+	public void RemoveTooltip(Tooltip thisTooltip)
+	{
+        if (thisTooltip == null) { return; };
+        if (thisTooltip.locked)
+        {
+            Debug.Log("Tooltip locked");
+            return;
+        }
+
+        thisTooltip.active = false;
+        thisTooltip.trigger = null;
+        thisTooltip.tooltipWindow.gameObject.SetActive(false);
+    }
 
 	public Tooltip GetCallersTooltip(TooltipTrigger caller)
 	{
