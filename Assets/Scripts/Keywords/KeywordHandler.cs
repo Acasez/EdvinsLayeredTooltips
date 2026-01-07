@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,14 @@ using UnityEngine;
 public class KeywordHandler : MonoBehaviour
 {
 	[SerializeField] public List<KeywordScriptableObject> keywords;
+    [SerializeField] public List<Wording> allWordings;
+
+    [Serializable]
+    public class Wording
+    {
+        public string wording;
+		public KeywordScriptableObject keyword;
+    }
 
     private void Start()
     {
@@ -16,9 +25,19 @@ public class KeywordHandler : MonoBehaviour
 
     public void TestKeywords()
 	{
+		allWordings.Clear();
+		Debug.Log("Testing Keyword");
 		for (int keywordIndex = 0; keywordIndex < keywords.Count; keywordIndex++)
 		{
-			Debug.Log("Keyword " + keywordIndex + " " + keywords[keywordIndex].keyword);
+			KeywordScriptableObject currentKeyword = keywords[keywordIndex];
+            Debug.Log("Keyword " + keywordIndex + " name: " + currentKeyword.keywordName);
+			for (int wordIndex = 0; wordIndex < currentKeyword.wordings.Count; wordIndex++)
+			{
+				Wording newWording = new Wording();
+				newWording.wording = currentKeyword.wordings[wordIndex];
+				newWording.keyword = currentKeyword;
+				allWordings.Add(newWording);
+            }
 		}
 	}
 
@@ -67,7 +86,7 @@ public class KeywordHandler : MonoBehaviour
 				if (match.Success)
 				{
 					string matchedText = match.Groups[1].Value;
-					string linkId = currentKeyword.keyword; // Use the keyword
+					string linkId = currentKeyword.keywordName; // Use the keyword
 
 					//Debug.Log("Added keyword " + currentKeyword.keyword + " to matchedKeywords list");
 					matchedKeywords.Add(currentKeyword);

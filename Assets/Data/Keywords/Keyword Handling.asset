@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
   m_Name: Keyword Handling
   m_EditorClassIdentifier: Assembly-CSharp::KeywordScriptableObject
-  keyword: Keyword Handling
+  keywordName: Keyword Handling
   wordings:
   - Keyword Handling
+  - KeywordHandling
   icon: 
   tooltipText: The thing can't handle multi-word keywords currently

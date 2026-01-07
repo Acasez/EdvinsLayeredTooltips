@@ -67,7 +67,7 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
 		{
 			if (keywords[i].tooltipText != null)
 			{
-				if (keywords[i].keyword == linkedWord)
+				if (keywords[i].keywordName == linkedWord)
 				{
 					return keywords[i].tooltipText;
 				}

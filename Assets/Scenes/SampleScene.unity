@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
   tooltipManager: {fileID: 471956127}
-  tooltipText: Keyword Handling is hard
+  tooltipText: KeywordHandling is hard
   tooltipType: 0
   mousePos: {x: 0, y: 0}
 --- !u!114 &1522030674
