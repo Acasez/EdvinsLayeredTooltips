@@ -132,13 +132,14 @@ public class KeywordHandler : MonoBehaviour
             textField.text = text;
             return;
         }
+        List<KeywordScriptableObject> activeKeywords = new List<KeywordScriptableObject>();
 
         var matchedKeywords = new HashSet<KeywordScriptableObject>();
         var segments = Regex.Split(text, "(<[^>]+>)")
             .Select((s, i) => (text: s, isTag: i % 2 != 0))
             .ToList();
         var processedSegments = new List<string>();
-
+        //Debug.Log("Prossecing segments. There is " + segments.Count + " segments");
         foreach (var (segment, isTag) in segments)
         {
             if (isTag)
@@ -148,26 +149,32 @@ public class KeywordHandler : MonoBehaviour
             }
 
             string processed = segment;
-            string originalSegment = segment; // Keep the original for matching
-
-            foreach (var wording in allWordings)
+            //Debug.Log("Checking segment " + segment + ".<-> There are " + keywords.Count + " keywords.");
+            for (int wordingIndex = 0; wordingIndex < allWordings.Count; wordingIndex++)
             {
-                if (matchedKeywords.Contains(wording.keyword))
+                Wording currentWording = allWordings[wordingIndex];
+                Debug.Log("Current wording " + currentWording + " with keyword " + currentWording.keyword.keywordName);
+                if (activeKeywords.Contains(currentWording.keyword)) {
+                    Debug.Log("Keyword already in tooltip");
                     continue;
+                }
 
-                string pattern = $@"\b({Regex.Escape(wording.wording)})\b";
-                var match = Regex.Match(originalSegment, pattern, RegexOptions.IgnoreCase);
+                string pattern = $@"\b({Regex.Escape(currentWording.wording)})\b";
+                var match = Regex.Match(processed, pattern, RegexOptions.IgnoreCase);
 
                 if (match.Success)
                 {
                     string matchedText = match.Groups[1].Value;
-                    string linkId = wording.keyword.keywordName;
-                    matchedKeywords.Add(wording.keyword);
+                    string linkId = currentWording.keyword.keywordName; // Use the keyword
 
-                    string icon = !string.IsNullOrWhiteSpace(wording.keyword.icon)
-                        ? $"<sprite name=\"{wording.keyword.icon}\">"
+                    Debug.Log("Added keyword " + currentWording.keyword.keywordName + " to matchedKeywords list");
+                    matchedKeywords.Add(currentWording.keyword);
+
+                    string icon = !string.IsNullOrWhiteSpace(currentWording.keyword.icon)
+                        ? $"<sprite name=\"{currentWording.keyword.icon}\">"
                         : "";
 
+                    // Conditionally wrap the matched text in <link> tags
                     if (createTooltips)
                     {
                         processed = processed.Substring(0, match.Index) +
@@ -188,6 +195,5 @@ public class KeywordHandler : MonoBehaviour
 
         textField.text = string.Concat(processedSegments);
     }
-
 
 }
