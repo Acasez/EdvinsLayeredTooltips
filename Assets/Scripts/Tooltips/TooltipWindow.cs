@@ -12,7 +12,7 @@ public class TooltipWindow : MonoBehaviour
 	[SerializeField] GameObject lockedBorders;
 	public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler)
 	{
-		keywordHandler.AddKeywordsToText(tooltipText, tooltipTextUI, true);
+		keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, tooltipTextUI, true);
 		//Debug.Log("Set up tooltip with : " + tooltipText);
 		SetTooltipSize();
 	}

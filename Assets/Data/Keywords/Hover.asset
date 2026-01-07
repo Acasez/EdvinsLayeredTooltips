@@ -17,5 +17,6 @@ MonoBehaviour:
   - Hover
   - Hovered
   - Hovering
+  - Hover over text
   icon: 
   tooltipText: Hovering is the act of placing your mouse over a keyword in text
