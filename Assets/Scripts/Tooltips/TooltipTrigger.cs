@@ -58,18 +58,17 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		CreateTooltip(null, Input.mousePosition);
 	}
 
-	public void CreateTooltip(string message, Vector3 location)
-	{
-		mousePos = Input.mousePosition;
-		if (message == null)
-		{
-			message = tooltipText;
-		}
+    public void CreateTooltip(string message, Vector3 location)
+    {
+        mousePos = location;
+        if (message == null)
+        {
+            message = tooltipText;
+        }
+        tooltipManager.SetupTooltipWindow(this, message, location);
+    }
 
-		tooltipManager.SetupTooltipWindow(this, message, location);
-	}
-
-	public bool HasToolTip()
+    public bool HasToolTip()
 	{
 		if (tooltipManager != null)
 		{

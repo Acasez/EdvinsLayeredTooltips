@@ -35,7 +35,7 @@ public class KeywordHandler : MonoBehaviour
 			.Select((s, i) => (text: s, isTag: i % 2 != 0))
 			.ToList();
 		var processedSegments = new List<string>();
-		Debug.Log("Prossecing segments. There is " + segments.Count + " segments");
+		//Debug.Log("Prossecing segments. There is " + segments.Count + " segments");
 		foreach (var (segment, isTag) in segments)
 		{
 			if (isTag)
@@ -45,11 +45,11 @@ public class KeywordHandler : MonoBehaviour
 			}
 
 			string processed = segment;
-            Debug.Log("Checking segment " + segment + ".<-> There are " + keywords.Count + " keywords.");
+            //Debug.Log("Checking segment " + segment + ".<-> There are " + keywords.Count + " keywords.");
             for (int keywordIndex = 0; keywordIndex < keywords.Count; keywordIndex++)
 			{
 				KeywordScriptableObject currentKeyword = keywords[keywordIndex];
-                Debug.Log("Current keyword " + currentKeyword.keyword);
+                //Debug.Log("Current keyword " + currentKeyword.keyword);
                 if (matchedKeywords.Contains(currentKeyword) ||
 					currentKeyword.wordings == null ||
 					currentKeyword.wordings.Count == 0)
@@ -69,7 +69,7 @@ public class KeywordHandler : MonoBehaviour
 					string matchedText = match.Groups[1].Value;
 					string linkId = currentKeyword.keyword; // Use the keyword
 
-					Debug.Log("Added keyword " + currentKeyword.keyword + " to matchedKeywords list");
+					//Debug.Log("Added keyword " + currentKeyword.keyword + " to matchedKeywords list");
 					matchedKeywords.Add(currentKeyword);
 
 					string icon = !string.IsNullOrWhiteSpace(currentKeyword.icon)

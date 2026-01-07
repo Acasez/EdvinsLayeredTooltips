@@ -116,38 +116,48 @@ public class TooltipManager : MonoBehaviour
 	}
 
 
-	public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 location)
-	{
-		Tooltip thisTooltip = GetFirstAvaibleTooltip();
-		if (thisTooltip == null) { return; }
-
-		thisTooltip.active = true;
-		thisTooltip.trigger = caller;
-
-		thisTooltip.tooltipWindow.gameObject.SetActive(true);
-		thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler);
-
-		RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
-        Vector2 clampedPos = GetPositionInsideCanvas(tooltipRect, location);
-        thisTooltip.tooltipWindow.transform.position = new Vector2(clampedPos.x, clampedPos.y); 
-	}
-
-    private Vector2 GetPositionInsideCanvas(RectTransform tooltipRect, Vector2 location)
+    public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition)
     {
+        Tooltip thisTooltip = GetFirstAvaibleTooltip();
+        if (thisTooltip == null) { return; }
+
+        thisTooltip.active = true;
+        thisTooltip.trigger = caller;
+
+        thisTooltip.tooltipWindow.gameObject.SetActive(true);
+        thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler);
+
+        RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
+        Vector2 clampedPos = GetPositionInsideCanvas(tooltipRect, screenPosition);
+        Debug.Log("Clamped Pos: " + clampedPos);
+        thisTooltip.tooltipWindow.transform.localPosition = clampedPos;
+    }
+
+    private Vector2 GetPositionInsideCanvas(RectTransform tooltipRect, Vector2 screenPosition)
+    {
+        // Convert screen position to local position in canvas
+        Vector2 localPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRectTransform,
+            screenPosition,
+            null, // Use null for overlay canvas, or specify your camera if using Screen Space - Camera
+            out localPosition
+        );
+
         // Calculate tooltip size
         float tooltipWidth = tooltipRect.rect.width;
         float tooltipHeight = tooltipRect.rect.height;
 
-        // Calculate the desired position
+        // Calculate the desired position (adjust for tooltip pivot and offset)
         float tipDownDistance = (tooltipHeight * tooltipSizeDownwardFactor) + tipNudge;
         if (mobile) tipDownDistance *= -1f;
-        Vector2 desiredPosition = new Vector2(location.x, location.y - tipDownDistance);
+        Vector2 desiredPosition = new Vector2(localPosition.x, localPosition.y - tipDownDistance);
 
-        // Get canvas bounds
+        // Get canvas bounds (already in local space)
         Vector2 canvasMin = canvasRectTransform.rect.min;
         Vector2 canvasMax = canvasRectTransform.rect.max;
 
-        // Calculate min/max allowed positions (accounting for tooltip size)
+        // Calculate min/max allowed positions (accounting for tooltip size and pivot)
         float minX = canvasMin.x + tooltipWidth * tooltipRect.pivot.x;
         float maxX = canvasMax.x - tooltipWidth * (1 - tooltipRect.pivot.x);
         float minY = canvasMin.y + tooltipHeight * tooltipRect.pivot.y;
@@ -157,8 +167,14 @@ public class TooltipManager : MonoBehaviour
         float clampedX = Mathf.Clamp(desiredPosition.x, minX, maxX);
         float clampedY = Mathf.Clamp(desiredPosition.y, minY, maxY);
 
+        Debug.Log("Screen Position: " + screenPosition);
+        Debug.Log("Local Position: " + localPosition);
+        Debug.Log("Desired Position: " + desiredPosition);
+        Debug.Log("Clamped Position: " + new Vector2(clampedX, clampedY));
+
         return new Vector2(clampedX, clampedY);
     }
+
 
 
     public void RemoveCallersTooltip(TooltipTrigger caller)

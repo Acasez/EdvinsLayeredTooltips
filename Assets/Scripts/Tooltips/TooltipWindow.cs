@@ -13,7 +13,7 @@ public class TooltipWindow : MonoBehaviour
 	public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler)
 	{
 		keywordHandler.AddKeywordsToText(tooltipText, tooltipTextUI, true);
-		Debug.Log("Set up tooltip with : " + tooltipText);
+		//Debug.Log("Set up tooltip with : " + tooltipText);
 		SetTooltipSize();
 	}
 
