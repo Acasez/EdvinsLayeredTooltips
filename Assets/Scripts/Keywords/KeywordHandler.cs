@@ -134,41 +134,44 @@ public class KeywordHandler : MonoBehaviour
         }
         List<KeywordScriptableObject> activeKeywords = new List<KeywordScriptableObject>();
 
-        var matchedKeywords = new HashSet<KeywordScriptableObject>();
-        var segments = Regex.Split(text, "(<[^>]+>)")
-            .Select((s, i) => (text: s, isTag: i % 2 != 0))
-            .ToList();
-        var processedSegments = new List<string>();
-        //Debug.Log("Prossecing segments. There is " + segments.Count + " segments");
-        foreach (var (segment, isTag) in segments)
+        for (int wordingIndex = 0; wordingIndex < allWordings.Count; wordingIndex++)
         {
-            if (isTag)
+            Wording currentWording = allWordings[wordingIndex];
+            Debug.Log("Current wording " + currentWording.wording + " with keyword " + currentWording.keyword.keywordName);
+            if (activeKeywords.Contains(currentWording.keyword))
             {
-                processedSegments.Add(segment);
+                Debug.Log("Keyword already in tooltip");
                 continue;
             }
+            //Split Up text into segments, ingore the parts in <> brackets
+            //Go through those parts and pattern match
 
-            string processed = segment;
-            //Debug.Log("Checking segment " + segment + ".<-> There are " + keywords.Count + " keywords.");
-            for (int wordingIndex = 0; wordingIndex < allWordings.Count; wordingIndex++)
+            var segments = Regex.Split(text, "(<[^>]+>)")
+            .Select((s, i) => (text: s, isTag: i % 2 != 0))
+            .ToList();
+            var processedSegments = new List<string>();
+            Debug.Log("Prossecing segments. There is " + segments.Count + " segments");
+            foreach (var (segment, isInBrackets) in segments)
             {
-                Wording currentWording = allWordings[wordingIndex];
-                Debug.Log("Current wording " + currentWording + " with keyword " + currentWording.keyword.keywordName);
-                if (activeKeywords.Contains(currentWording.keyword)) {
-                    Debug.Log("Keyword already in tooltip");
+                string currentSegment = segment;
+                Debug.Log("Prossecing segment: " + currentSegment);
+                if (isInBrackets)
+                {
+                    Debug.Log("Segment: " + currentSegment + " is already in <> brackets, ignoring");
+                    processedSegments.Add(currentSegment); //Add part to bracket, skip checking it
                     continue;
                 }
 
                 string pattern = $@"\b({Regex.Escape(currentWording.wording)})\b";
-                var match = Regex.Match(processed, pattern, RegexOptions.IgnoreCase);
+                var match = Regex.Match(currentSegment, pattern, RegexOptions.IgnoreCase);
 
                 if (match.Success)
                 {
                     string matchedText = match.Groups[1].Value;
-                    string linkId = currentWording.keyword.keywordName; // Use the keyword
+                    string linkId = currentWording.keyword.keywordName;
 
-                    Debug.Log("Added keyword " + currentWording.keyword.keywordName + " to matchedKeywords list");
-                    matchedKeywords.Add(currentWording.keyword);
+                    Debug.Log("Added keyword " + currentWording.keyword.keywordName + " to activeKeywords list");
+                    activeKeywords.Add(currentWording.keyword);
 
                     string icon = !string.IsNullOrWhiteSpace(currentWording.keyword.icon)
                         ? $"<sprite name=\"{currentWording.keyword.icon}\">"
@@ -177,23 +180,20 @@ public class KeywordHandler : MonoBehaviour
                     // Conditionally wrap the matched text in <link> tags
                     if (createTooltips)
                     {
-                        processed = processed.Substring(0, match.Index) +
-                                    $"<link=\"{linkId}\"><u>{matchedText}</u></link>{icon}" +
-                                    processed.Substring(match.Index + match.Length);
+                        currentSegment = currentSegment.Substring(0, match.Index) + $"<link=\"{linkId}\"><u>{matchedText}</u></link>{icon}" + currentSegment.Substring(match.Index + match.Length);
                     }
                     else
                     {
-                        processed = processed.Substring(0, match.Index) +
-                                    $"<u>{matchedText}</u>{icon}" +
-                                    processed.Substring(match.Index + match.Length);
+                        currentSegment = currentSegment.Substring(0, match.Index) + $"<u>{matchedText}</u>{icon}" + currentSegment.Substring(match.Index + match.Length);
                     }
                 }
+                processedSegments.Add(currentSegment);
             }
-
-            processedSegments.Add(processed);
+            text = string.Concat(processedSegments);
+            Debug.Log("Text is now " + text + " from segments");
         }
 
-        textField.text = string.Concat(processedSegments);
+        textField.text = text;
     }
 
 }

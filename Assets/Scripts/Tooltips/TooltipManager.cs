@@ -166,12 +166,12 @@ public class TooltipManager : MonoBehaviour
         // Clamp
         float clampedX = Mathf.Clamp(desiredPosition.x, minX, maxX);
         float clampedY = Mathf.Clamp(desiredPosition.y, minY, maxY);
-
+		/*
         Debug.Log("Screen Position: " + screenPosition);
         Debug.Log("Local Position: " + localPosition);
         Debug.Log("Desired Position: " + desiredPosition);
         Debug.Log("Clamped Position: " + new Vector2(clampedX, clampedY));
-
+		*/
         return new Vector2(clampedX, clampedY);
     }
 
