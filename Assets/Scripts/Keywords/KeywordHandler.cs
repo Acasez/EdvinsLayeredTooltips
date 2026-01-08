@@ -146,10 +146,11 @@ public class KeywordHandler : MonoBehaviour
             //Split Up text into segments, ingore the parts in <> brackets
             //Go through those parts and pattern match
 
-            var segments = Regex.Split(text, "<(<[^>]+>)>").Select((s, i) => (text: s, isTag: i % 2 != 0)).ToList(); //Split up text into segments split by <> brackets
+            Debug.Log("Current Text is ");
+            var segments = SplitTextIntoSegments(text); //Split up text into segments split by <> brackets
             var processedSegments = new List<string>();
 
-            Debug.Log("Prossecing segments. There is " + segments.Count + " segments");
+            Debug.Log("Prossecing segments. There are " + segments.Count + " segments");
             foreach (var (segment, isInBrackets) in segments)
             {
                 string currentSegment = segment;
@@ -199,4 +200,50 @@ public class KeywordHandler : MonoBehaviour
         textField.text = text;
     }
 
+    public static List<(string text, bool isInBrackets)> SplitTextIntoSegments(string text)
+    {
+        var segments = new List<(string, bool)>();
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return segments;
+        }
+
+        int start = 0;
+        bool inBrackets = false;
+        var stack = new Stack<int>(); // Tracks the position of '<'
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (text[i] == '<')
+            {
+                // Push current segment if not empty
+                if (i > start)
+                {
+                    segments.Add((text.Substring(start, i - start), inBrackets));
+                }
+                stack.Push(i);
+                start = i;
+                inBrackets = true;
+            }
+            else if (text[i] == '>' && stack.Count > 0)
+            {
+                // Pop and check if we're closing the outermost bracket
+                stack.Pop();
+                if (stack.Count == 0)
+                {
+                    segments.Add((text.Substring(start, i - start + 1), true));
+                    start = i + 1;
+                    inBrackets = false;
+                }
+            }
+        }
+
+        // Add the remaining text
+        if (start < text.Length)
+        {
+            segments.Add((text.Substring(start), inBrackets));
+        }
+
+        return segments;
+    }
 }
