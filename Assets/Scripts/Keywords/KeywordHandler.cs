@@ -210,31 +210,52 @@ public class KeywordHandler : MonoBehaviour
 
         int start = 0;
         bool inBrackets = false;
-        var stack = new Stack<int>(); // Tracks the position of '<'
+        var stack = new Stack<string>(); // Tracks the type of opening tag
 
         for (int i = 0; i < text.Length; i++)
         {
-            if (text[i] == '<')
+            if (text.Substring(i).StartsWith("<u>"))
             {
                 // Push current segment if not empty
                 if (i > start)
                 {
                     segments.Add((text.Substring(start, i - start), inBrackets));
                 }
-                stack.Push(i);
+                stack.Push("<u>");
+                start = i;
+                inBrackets = true;
+                i += 2; // Skip past "<u"
+            }
+            else if (text.Substring(i).StartsWith("</u>"))
+            {
+                // Pop and check if we're closing the outermost bracket
+                if (stack.Count > 0 && stack.Peek() == "<u>")
+                {
+                    stack.Pop();
+                    segments.Add((text.Substring(start, i - start + 4), true)); // Include "</u>"
+                    start = i + 4; // Skip past "</u>"
+                    inBrackets = (stack.Count > 0);
+                }
+                i += 3; // Skip past "</u>"
+            }
+            else if (text[i] == '<')
+            {
+                // Handle other opening tags (e.g., <b>, <i>, etc.)
+                if (i > start)
+                {
+                    segments.Add((text.Substring(start, i - start), inBrackets));
+                }
+                stack.Push("<");
                 start = i;
                 inBrackets = true;
             }
-            else if (text[i] == '>' && stack.Count > 0)
+            else if (text[i] == '>' && stack.Count > 0 && stack.Peek() == "<")
             {
-                // Pop and check if we're closing the outermost bracket
+                // Handle closing of other tags
                 stack.Pop();
-                if (stack.Count == 0)
-                {
-                    segments.Add((text.Substring(start, i - start + 1), true));
-                    start = i + 1;
-                    inBrackets = false;
-                }
+                segments.Add((text.Substring(start, i - start + 1), true));
+                start = i + 1;
+                inBrackets = (stack.Count > 0);
             }
         }
 
@@ -246,4 +267,5 @@ public class KeywordHandler : MonoBehaviour
 
         return segments;
     }
+
 }

@@ -392,7 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipTextUI: {fileID: 3675031685061177864}
   tooltipWindowHeight: 0
-  tooltipWindowExtraHeight: 0
+  tooltipWindowExtraHeight: 5
   lockedBorders: {fileID: 6173708367102527726}
 --- !u!1 &6173708367102527726
 GameObject:
