@@ -146,15 +146,19 @@ public class KeywordHandler : MonoBehaviour
             //Split Up text into segments, ingore the parts in <> brackets
             //Go through those parts and pattern match
 
-            var segments = Regex.Split(text, "(<[^>]+>)")
-            .Select((s, i) => (text: s, isTag: i % 2 != 0))
-            .ToList();
+            var segments = Regex.Split(text, "<(<[^>]+>)>").Select((s, i) => (text: s, isTag: i % 2 != 0)).ToList(); //Split up text into segments split by <> brackets
             var processedSegments = new List<string>();
+
             Debug.Log("Prossecing segments. There is " + segments.Count + " segments");
             foreach (var (segment, isInBrackets) in segments)
             {
                 string currentSegment = segment;
                 Debug.Log("Prossecing segment: " + currentSegment);
+                if (string.IsNullOrWhiteSpace(currentSegment))
+                {
+                    Debug.Log("Segment: " + currentSegment + " is empty, ignoring");
+                    continue;
+                }
                 if (isInBrackets)
                 {
                     Debug.Log("Segment: " + currentSegment + " is already in <> brackets, ignoring");
@@ -167,24 +171,23 @@ public class KeywordHandler : MonoBehaviour
 
                 if (match.Success)
                 {
+                    Debug.Log("Found Match! " + currentWording.wording + " for keyword " + currentWording.keyword.keywordName);
                     string matchedText = match.Groups[1].Value;
                     string linkId = currentWording.keyword.keywordName;
 
                     Debug.Log("Added keyword " + currentWording.keyword.keywordName + " to activeKeywords list");
                     activeKeywords.Add(currentWording.keyword);
 
-                    string icon = !string.IsNullOrWhiteSpace(currentWording.keyword.icon)
-                        ? $"<sprite name=\"{currentWording.keyword.icon}\">"
-                        : "";
+                    string icon = !string.IsNullOrWhiteSpace(currentWording.keyword.icon) ? $"<sprite name=\"{currentWording.keyword.icon}\">": "";
 
                     // Conditionally wrap the matched text in <link> tags
                     if (createTooltips)
                     {
-                        currentSegment = currentSegment.Substring(0, match.Index) + $"<link=\"{linkId}\"><u>{matchedText}</u></link>{icon}" + currentSegment.Substring(match.Index + match.Length);
+                        currentSegment = currentSegment[..match.Index] + $"<link=\"{linkId}\"><u>{matchedText}</u></link>{icon}" + currentSegment[(match.Index + match.Length)..];
                     }
                     else
                     {
-                        currentSegment = currentSegment.Substring(0, match.Index) + $"<u>{matchedText}</u>{icon}" + currentSegment.Substring(match.Index + match.Length);
+                        currentSegment = currentSegment[..match.Index] + $"<u>{matchedText}</u>{icon}" + currentSegment[(match.Index + match.Length)..];
                     }
                 }
                 processedSegments.Add(currentSegment);
