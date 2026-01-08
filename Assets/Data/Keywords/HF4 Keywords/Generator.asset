@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
-  m_Name: Thrust Area
-  m_EditorClassIdentifier: Assembly-CSharp::KeywordScriptableObject
-  keywordName: Thrust Area
+  m_Name: Generator
+  m_EditorClassIdentifier: 
+  keyword: Generator
   wordings:
-  - Thrust Area
-  - Thrust Areas
+  - Generator
+  - Generators
   icon: 
-  tooltipText: The Thrust Area is the golden square on the bottom left of patents
-    that shows its stats when used as a Thruster or Thrust Modifier. In this area,
-    the patent's Thrust and Fuel Consumption are shown.
+  tooltipText: Generator cards provide <sprite name=E Gen> and/or <sprite name=Bracket
+    Gen> supports

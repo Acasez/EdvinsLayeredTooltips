@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
-  m_Name: Thrust Modifier
-  m_EditorClassIdentifier: Assembly-CSharp::KeywordScriptableObject
-  keywordName: Thrust Modifier
+  m_Name: Afterburn
+  m_EditorClassIdentifier: 
+  keyword: Afterburn
   wordings:
-  - Thrust Modifier
-  - Thrust Modifiers
-  icon: 
-  tooltipText: Some reactors and generators have Thrust Modifiers. These modify the
-    Thrust and Fuel Consumption when used as supports for a thruster
+  - 'Afterburns '
+  - Afterburn
+  icon: Afterburn
+  tooltipText: Afterburn can be used to increase the thrust of a rocket by 1 at the
+    cost (in fuel) of the number written in the afterburn icon

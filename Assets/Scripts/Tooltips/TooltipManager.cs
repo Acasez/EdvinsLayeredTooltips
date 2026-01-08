@@ -175,8 +175,6 @@ public class TooltipManager : MonoBehaviour
         return new Vector2(clampedX, clampedY);
     }
 
-
-
     public void RemoveCallersTooltip(TooltipTrigger caller)
 	{
 		Tooltip thisTooltip = GetCallersTooltip(caller);

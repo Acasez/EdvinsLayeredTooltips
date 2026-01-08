@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
+  m_Name: Glory Chit
+  m_EditorClassIdentifier: 
+  keyword: Glory Chit
+  wordings:
+  - Glory Chit
+  icon: Glory
+  tooltipText: Glory Chits can be picked up by the first player to land in a Heliocentric
+    zone with a Crew card. They are worth 1 VP by default, but can be worth more
+    if returned to Earth with that Crew Card.

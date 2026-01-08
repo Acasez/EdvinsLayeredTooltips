@@ -42,7 +42,12 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		StopAllCoroutines();
+        if (IsPointerOverTooltip())
+        {
+            return;
+        }
+
+        StopAllCoroutines();
 		DestroyPreviousTooltip();
 	}
 
@@ -57,6 +62,28 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		DestroyPreviousTooltip();
 		CreateTooltip(null, Input.mousePosition);
 	}
+
+	public bool IsPointerOverTooltip()
+	{
+        // Get the tooltip's RectTransform
+        TooltipWindow tooltipWindow = tooltipManager.GetCallersTooltip(this)?.tooltipWindow;
+        if (tooltipWindow == null)
+        {
+            return false; // No tooltip exists
+        }
+
+        RectTransform tooltipRect = tooltipWindow.GetComponent<RectTransform>();
+        if (tooltipRect == null)
+        {
+            return false; // No RectTransform found
+        }
+
+        // Convert mouse position to screen point
+        Vector2 mouseScreenPos = Input.mousePosition;
+
+        // Check if the mouse is over the tooltip
+        return RectTransformUtility.RectangleContainsScreenPoint(tooltipRect, mouseScreenPos);
+    }
 
     public void CreateTooltip(string message, Vector3 location)
     {

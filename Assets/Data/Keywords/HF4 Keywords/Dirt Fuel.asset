@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
+  m_Name: Dirt Fuel
+  m_EditorClassIdentifier: 
+  keywordName: Dirt Fuel
+  wordings:
+  - Dirt Fuel
+  icon: Dirt Fuel
+  tooltipText: 'Gray, dirt fuel can be used by some thrusters. While those thrusters
+    are active, refueling is a free action and any number can provide any number
+    of fuel. '

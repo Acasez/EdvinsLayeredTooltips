@@ -25,41 +25,46 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
     }
 
     public void OnPointerMove(PointerEventData eventData)
-	{
-		if (trigger.HasToolTip())
-		{
-			return;
-		}
-		int linkIndex = TMP_TextUtilities.FindIntersectingLink(textMeshPro, Input.mousePosition, null);
-		if (linkIndex != -1 && linkIndex != lastLinkIndex)
-		{
-			lastLinkIndex = linkIndex;
-			TMP_LinkInfo linkInfo = textMeshPro.textInfo.linkInfo[linkIndex];
-			string linkedWord = linkInfo.GetLinkID();
-			Debug.Log($"Hovered keyword: {linkedWord}");
-			if (linkedWord != null)
-			{
-				string description = GetKeywordDescription(linkedWord);
-				if (!string.IsNullOrEmpty(description))
-				{
-					trigger.CreateTooltip(description, Input.mousePosition);
-				}
-			}
-		}
-		else if (linkIndex == -1 && lastLinkIndex != -1)
-		{
-			lastLinkIndex = -1;
-			trigger.DestroyPreviousTooltip();
-		}
-	}
+    {
+        if (trigger.HasToolTip())
+        {
+            return;
+        }
 
-	public void OnPointerExit(PointerEventData eventData)
-	{
-		trigger.DestroyPreviousTooltip();
-		lastLinkIndex = -1;
-	}
+        int linkIndex = TMP_TextUtilities.FindIntersectingLink(textMeshPro, Input.mousePosition, null);
+        if (linkIndex != -1 && linkIndex != lastLinkIndex)
+        {
+            lastLinkIndex = linkIndex;
+            TMP_LinkInfo linkInfo = textMeshPro.textInfo.linkInfo[linkIndex];
+            string linkedWord = linkInfo.GetLinkID();
+            Debug.Log($"Hovered keyword: {linkedWord}");
+            if (linkedWord != null)
+            {
+                string description = GetKeywordDescription(linkedWord);
+                if (!string.IsNullOrEmpty(description))
+                {
+                    trigger.CreateTooltip(description, Input.mousePosition);
+                }
+            }
+        }
+        else if (linkIndex == -1 && lastLinkIndex != -1 && !trigger.IsPointerOverTooltip())
+        {
+            lastLinkIndex = -1;
+            trigger.DestroyPreviousTooltip();
+        }
+    }
 
-	private string GetKeywordDescription(string linkedWord)
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!trigger.IsPointerOverTooltip())
+        {
+            trigger.DestroyPreviousTooltip();
+            lastLinkIndex = -1;
+        }
+    }
+
+    private string GetKeywordDescription(string linkedWord)
 	{
         List<KeywordScriptableObject> keywords = tooltipManager.GetKeywords();
 

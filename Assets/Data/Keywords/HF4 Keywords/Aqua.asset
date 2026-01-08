@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
-  m_Name: Thrust
-  m_EditorClassIdentifier: Assembly-CSharp::KeywordScriptableObject
-  keywordName: Thrust
+  m_Name: Aqua
+  m_EditorClassIdentifier: 
+  keyword: Aqua
   wordings:
-  - Thrust
-  icon: 
-  tooltipText: Thrust determines how many burns a rocket can move in a movement.
-    It's determined by the selected thruster, modified by mass and Thrust Modifiers.
+  - Aqua
+  icon: Aqua
+  tooltipText: Aqua is the main currency in the game. It's used to bid in auctions,
+    boost patents to LEO and fuel rockets. You can gain Aqua by selling Patents,
+    by hosting auctions that other players win and by taking the Income Action.
