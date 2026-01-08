@@ -72,7 +72,9 @@ public class TooltipManager : MonoBehaviour
 		{
 			tooltip.locked = false;
 			tooltip.tooltipWindow.DisplayLockTooltip(false);
-			RemoveTooltip(tooltip);	
+			if (!tooltip.trigger.IsPointerOverTooltip()) { //Remove tooltip if the mouse isn't there currently
+                RemoveTooltip(tooltip);
+            }
 		}
 		else
 		{

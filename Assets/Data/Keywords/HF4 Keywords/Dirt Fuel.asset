@@ -17,5 +17,4 @@ MonoBehaviour:
   - Dirt Fuel
   icon: Dirt Fuel
   tooltipText: 'Gray, dirt fuel can be used by some thrusters. While those thrusters
-    are active, refueling is a free action and any number can provide any number
-    of fuel. '
+    are active, refueling is a free action and can provide any number of fuel. '
