@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.97735846, g: 0.54620683, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.97735846, g: 0.54620683, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.97735846, g: 0.54620683, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.97735846, g: 0.54620683, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -393,7 +393,14 @@ MonoBehaviour:
   tooltipTextUI: {fileID: 3675031685061177864}
   tooltipWindowHeight: 0
   tooltipWindowExtraHeight: 5
-  lockedBorders: {fileID: 6173708367102527726}
+  lockedBorders:
+  - {fileID: 8124454957132806764}
+  - {fileID: 4048470489455022849}
+  - {fileID: 9140834479332012293}
+  - {fileID: 6483324452896107960}
+  defaultBorderColor: {r: 1, g: 1, b: 1, a: 0.2}
+  lockedBorderColor: {r: 0.9764706, g: 0.54509807, b: 0, a: 1}
+  locked: 0
 --- !u!1 &6173708367102527726
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4024270113470057885
 RectTransform:
   m_ObjectHideFlags: 0
