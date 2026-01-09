@@ -14,8 +14,9 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	[SerializeField] TooltipManager tooltipManager;
 	[SerializeField] string tooltipText;
 	[SerializeField] TooltipType tooltipType;
+    [SerializeField] TooltipWindow tooltipWindow;
 
-	private void Start()
+    private void Start()
 	{
 		tooltipManager = FindAnyObjectByType<TooltipManager>();
 		if (tooltipManager == null)

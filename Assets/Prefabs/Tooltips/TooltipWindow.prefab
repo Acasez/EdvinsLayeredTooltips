@@ -596,6 +596,7 @@ MonoBehaviour:
   tooltipManager: {fileID: 0}
   tooltipText: 
   tooltipType: 3
+  tooltipWindow: {fileID: 5895633090016677584}
 --- !u!114 &6821728646836164366
 MonoBehaviour:
   m_ObjectHideFlags: 0

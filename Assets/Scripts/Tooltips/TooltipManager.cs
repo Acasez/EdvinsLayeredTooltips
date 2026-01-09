@@ -122,6 +122,7 @@ public class TooltipManager : MonoBehaviour
     {
 		if (GetCallersTooltip(caller) != null)
 		{
+			Debug.Log("Caller already has tooltip");
 			return;
 		}
 
