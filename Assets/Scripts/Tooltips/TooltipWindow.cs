@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TooltipWindow : MonoBehaviour
+public class TooltipWindow : MonoBehaviour, IPointerExitHandler
 {
     [Header("References")]
     [SerializeField] TextMeshProUGUI tooltipTextUI;
+    [SerializeField] TooltipManager tooltipManager;
+    [SerializeField] TooltipManager.Tooltip tooltip;
 
     [Header("Settings")]
     [SerializeField] float tooltipWindowHeight;
@@ -20,6 +23,11 @@ public class TooltipWindow : MonoBehaviour
 	public Color lockedBorderColor;
 	public bool locked;
 
+	public void SetReferenceTooltip(TooltipManager.Tooltip tooltipRef)
+	{
+		tooltip = tooltipRef;
+	}
+
     public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler, KeywordScriptableObject keyword)
 	{
 		tooltipTextUI.text = "";
@@ -27,7 +35,7 @@ public class TooltipWindow : MonoBehaviour
 		{
 			tooltipTextUI.text += "<size=150%>" + keyword.keywordName + "<size=100%>\n";
         }
-        tooltipTextUI.text += keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, true);
+        tooltipTextUI.text += keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, true, keyword);
 		//Debug.Log("Set up tooltip with : " + tooltipText);
 		SetTooltipSize();
 	}
@@ -52,4 +60,9 @@ public class TooltipWindow : MonoBehaviour
             }
 		}
 	}
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+		tooltipManager.RemoveTooltip(tooltip);
+    }
 }

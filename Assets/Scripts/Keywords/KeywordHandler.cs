@@ -70,7 +70,7 @@ public class KeywordHandler : MonoBehaviour
         allWordings = allWordings.OrderByDescending(w => (w?.wording?.Count(c => c == ' ')) ?? 0).ToList();
     }
 
-    public string AddKeywordsToTextFromWordingList(string text, bool createTooltips)
+    public string AddKeywordsToTextFromWordingList(string text, bool createTooltips, KeywordScriptableObject keyword)
     {
         if (allWordings.Count == 0)
         {
@@ -78,6 +78,10 @@ public class KeywordHandler : MonoBehaviour
             return text;
         }
         List<KeywordScriptableObject> activeKeywords = new List<KeywordScriptableObject>();
+        if (keyword != null)
+        {
+            activeKeywords.Add(keyword);
+        }
 
         for (int wordingIndex = 0; wordingIndex < allWordings.Count; wordingIndex++)
         {

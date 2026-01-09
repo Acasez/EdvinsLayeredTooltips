@@ -136,6 +136,7 @@ public class TooltipManager : MonoBehaviour
         thisTooltip.trigger = caller;
 
         thisTooltip.tooltipWindow.gameObject.SetActive(true);
+		thisTooltip.tooltipWindow.SetReferenceTooltip(thisTooltip);
         thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler, keyword);
 
         RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
@@ -177,12 +178,7 @@ public class TooltipManager : MonoBehaviour
         // Clamp
         float clampedX = Mathf.Clamp(desiredPosition.x, minX, maxX);
         float clampedY = Mathf.Clamp(desiredPosition.y, minY, maxY);
-		/*
-        Debug.Log("Screen Position: " + screenPosition);
-        Debug.Log("Local Position: " + localPosition);
-        Debug.Log("Desired Position: " + desiredPosition);
-        Debug.Log("Clamped Position: " + new Vector2(clampedX, clampedY));
-		*/
+
         return new Vector2(clampedX, clampedY);
     }
 
