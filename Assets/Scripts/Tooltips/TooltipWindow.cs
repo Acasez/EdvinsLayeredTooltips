@@ -45,7 +45,6 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
             }
         }
         tooltipTextUI.text += keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, true, keyword);
-		//Debug.Log("Set up tooltip with : " + tooltipText);
 		SetTooltipSize();
 	}
 

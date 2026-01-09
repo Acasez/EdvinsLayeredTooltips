@@ -194,13 +194,29 @@ public class TooltipManager : MonoBehaviour
         if (thisTooltip == null) { return; };
         if (thisTooltip.locked)
         {
-            Debug.Log("Tooltip locked");
             return;
         }
+		//RemoveTooltipsAboveThis(thisTooltip);
 
         thisTooltip.active = false;
         thisTooltip.trigger = null;
         thisTooltip.tooltipWindow.gameObject.SetActive(false);
+    }
+
+	public void RemoveTooltipsAboveThis(Tooltip thisTooltip)
+    {
+        for (int i = tooltips.Count - 1; i > -1; i--)
+        {
+			if (tooltips[i] == thisTooltip)
+			{
+				return;
+			}
+            if (tooltips[i].active)
+			{
+				Debug.Log("Removing tooltip " + i);
+				RemoveTooltip(tooltips[i]);
+            }
+        }
     }
 
 	public Tooltip GetCallersTooltip(TooltipTrigger caller)
