@@ -20,9 +20,14 @@ public class TooltipWindow : MonoBehaviour
 	public Color lockedBorderColor;
 	public bool locked;
 
-    public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler)
+    public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler, KeywordScriptableObject keyword)
 	{
-		keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, tooltipTextUI, true);
+		tooltipTextUI.text = "";
+        if (keyword != null)
+		{
+			tooltipTextUI.text += "<size=150%>" + keyword.keywordName + "<size=100%>\n";
+        }
+        tooltipTextUI.text += keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, true);
 		//Debug.Log("Set up tooltip with : " + tooltipText);
 		SetTooltipSize();
 	}

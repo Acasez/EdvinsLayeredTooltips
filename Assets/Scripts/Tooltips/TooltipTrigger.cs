@@ -58,7 +58,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	{
 		yield return new WaitForSeconds(0.5f);
 		DestroyPreviousTooltip();
-		CreateTooltip(null, Input.mousePosition);
+		CreateTooltip(null, Input.mousePosition, null);
 	}
 
 	public bool IsPointerOverTooltip()
@@ -83,13 +83,13 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         return RectTransformUtility.RectangleContainsScreenPoint(tooltipRect, mouseScreenPos);
     }
 
-    public void CreateTooltip(string message, Vector3 location)
+    public void CreateTooltip(string message, Vector3 location, KeywordScriptableObject keyword)
     {
         if (message == null)
         {
             message = tooltipText;
         }
-        tooltipManager.SetupTooltipWindow(this, message, location);
+        tooltipManager.SetupTooltipWindow(this, message, location, keyword);
     }
 
     public bool HasToolTip()

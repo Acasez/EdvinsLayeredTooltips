@@ -18,7 +18,10 @@ public class TooltipManager : MonoBehaviour
     [Header("Keywords")]
 	[SerializeField] KeywordHandler keywordHandler;
 
-	[Header("Tooltip Text Settings")]
+    [Tooltip("Weather the keyword's title should be displayed at the top of the tooltip")]
+    [SerializeField] bool showTooltipTitle;
+
+    [Header("Tooltip Text Settings")]
 	/* Might wanna keep these for later adjustments
 	[SerializeField] int lineWidth = 200; // Maximum width of the tooltip text
 	[SerializeField] int borderSize = 8; // Size of the border around the tooltip
@@ -118,7 +121,7 @@ public class TooltipManager : MonoBehaviour
 	}
 
 
-    public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition)
+    public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition, KeywordScriptableObject keyword)
     {
 		if (GetCallersTooltip(caller) != null)
 		{
@@ -133,7 +136,7 @@ public class TooltipManager : MonoBehaviour
         thisTooltip.trigger = caller;
 
         thisTooltip.tooltipWindow.gameObject.SetActive(true);
-        thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler);
+        thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler, keyword);
 
         RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
         Vector2 clampedPos = GetPositionInsideCanvas(tooltipRect, screenPosition);

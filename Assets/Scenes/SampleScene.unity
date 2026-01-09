@@ -808,7 +808,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: highlightStyleEnum
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: highlightStyle.name

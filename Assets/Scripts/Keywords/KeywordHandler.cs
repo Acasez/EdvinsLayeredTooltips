@@ -13,7 +13,8 @@ public class KeywordHandler : MonoBehaviour
         Bold,
         Italic,
         UnderlineBold,
-        CK3Style
+        CK3Style,
+        BG3Style
     }
 
     [Header("Lists")]
@@ -23,6 +24,7 @@ public class KeywordHandler : MonoBehaviour
     [SerializeField] public List<Wording> activeKeywords;
 
     [Header("Decoration")]
+    [Tooltip("The tooltip style. More can be added in the Highlight Style script")]
     [SerializeField] HighlightStyleEnum highlightStyleEnum;
     [SerializeField] HighlightStyles.HighlightStyle highlightStyle;
 
@@ -65,17 +67,15 @@ public class KeywordHandler : MonoBehaviour
 
         // Sort allWordings by the number of spaces in the wording (descending).
         // Use 0 for null wording strings.
-        allWordings = allWordings
-            .OrderByDescending(w => (w?.wording?.Count(c => c == ' ')) ?? 0)
-            .ToList();
+        allWordings = allWordings.OrderByDescending(w => (w?.wording?.Count(c => c == ' ')) ?? 0).ToList();
     }
 
-    public void AddKeywordsToTextFromWordingList(string text, TextMeshProUGUI textField, bool createTooltips)
+    public string AddKeywordsToTextFromWordingList(string text, bool createTooltips)
     {
         if (allWordings.Count == 0)
         {
-            textField.text = text;
-            return;
+            Debug.LogWarning("No wordings, you might have missed to add them");
+            return text;
         }
         List<KeywordScriptableObject> activeKeywords = new List<KeywordScriptableObject>();
 
@@ -142,7 +142,7 @@ public class KeywordHandler : MonoBehaviour
             Debug.Log("Text is now " + text + " from segments");
         }
 
-        textField.text = text;
+        return text;
     }
 
     public List<(string text, bool isInBrackets)> SplitTextIntoSegments(string text)

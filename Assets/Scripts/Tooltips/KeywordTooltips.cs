@@ -40,10 +40,10 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
             Debug.Log($"Hovered keyword: {linkedWord}");
             if (linkedWord != null)
             {
-                string description = GetKeywordDescription(linkedWord);
-                if (!string.IsNullOrEmpty(description))
+                KeywordScriptableObject keyword = GetKeyword(linkedWord);
+                if (keyword != null)
                 {
-                    trigger.CreateTooltip(description, Input.mousePosition);
+                    trigger.CreateTooltip(keyword.tooltipText, Input.mousePosition, keyword);
                 }
             }
         }
@@ -64,7 +64,7 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
         }
     }
 
-    private string GetKeywordDescription(string linkedWord)
+    private KeywordScriptableObject GetKeyword(string linkedWord)
 	{
         List<KeywordScriptableObject> keywords = tooltipManager.GetKeywords();
 
@@ -74,7 +74,7 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
 			{
 				if (keywords[i].keywordName == linkedWord)
 				{
-					return keywords[i].tooltipText;
+					return keywords[i];
 				}
 			}
 			else
