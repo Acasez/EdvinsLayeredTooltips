@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Thruster
   m_EditorClassIdentifier: 
   keywordName: Thruster
+  keywordType: 5
   wordings:
   - Thruster
   - Thrusters

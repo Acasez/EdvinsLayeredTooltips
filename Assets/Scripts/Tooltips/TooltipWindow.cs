@@ -17,6 +17,11 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
     [SerializeField] float tooltipWindowExtraHeight;
 	[SerializeField] float tooltipWindowWidth;
 
+	[Header("Settings")]
+    [SerializeField] bool showTitle = true;
+    [SerializeField] int titleTextSize = 125;
+    [SerializeField] int typeTextSize = 110;
+
     [Header("Locked Borders")]
     [SerializeField] List<Image> lockedBorders;
 	public Color defaultBorderColor;
@@ -31,9 +36,13 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
     public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler, KeywordScriptableObject keyword)
 	{
 		tooltipTextUI.text = "";
-        if (keyword != null)
+        if (keyword != null && showTitle == true)
 		{
-			tooltipTextUI.text += "<size=150%>" + keyword.keywordName + "<size=100%>\n";
+			tooltipTextUI.text += "<size=" + titleTextSize + "%>" + keyword.keywordName + "<size=100%>\n";
+            if (keyword.keywordType != KeywordHandler.KeywordType.None)
+            {
+                tooltipTextUI.text += "<size=" + typeTextSize + "%>" + keyword.keywordType + "<size=100%>\n";
+            }
         }
         tooltipTextUI.text += keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, true, keyword);
 		//Debug.Log("Set up tooltip with : " + tooltipText);

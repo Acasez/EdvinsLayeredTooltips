@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fuel
   m_EditorClassIdentifier: 
   keywordName: Fuel
+  keywordType: 2
   wordings:
   - Fuel
   icon: Fuel

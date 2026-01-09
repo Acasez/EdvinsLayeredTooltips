@@ -16,6 +16,16 @@ public class KeywordHandler : MonoBehaviour
         CK3Style,
         BG3Style
     }
+    public enum KeywordType
+    {
+        None,
+        Action,
+        Resource,
+        Mechanic,
+        Condition,
+        CardType,
+        Location
+    }
 
     [Header("Lists")]
     [Tooltip("The keywords used in the the game. Needs to be updated when you add new keywords.")]
@@ -51,11 +61,9 @@ public class KeywordHandler : MonoBehaviour
     public void MakeWordingList()
 	{
 		allWordings.Clear();
-		Debug.Log("Creating Wording List");
 		for (int keywordIndex = 0; keywordIndex < keywords.Count; keywordIndex++)
 		{
 			KeywordScriptableObject currentKeyword = keywords[keywordIndex];
-            Debug.Log("Keyword " + keywordIndex + " name: " + currentKeyword.keywordName);
 			for (int wordIndex = 0; wordIndex < currentKeyword.wordings.Count; wordIndex++)
 			{
 				Wording newWording = new Wording();
@@ -86,7 +94,7 @@ public class KeywordHandler : MonoBehaviour
         for (int wordingIndex = 0; wordingIndex < allWordings.Count; wordingIndex++)
         {
             Wording currentWording = allWordings[wordingIndex];
-            Debug.Log("Current wording " + currentWording.wording + " with keyword " + currentWording.keyword.keywordName);
+            //Debug.Log("Current wording " + currentWording.wording + " with keyword " + currentWording.keyword.keywordName);
             if (activeKeywords.Contains(currentWording.keyword))
             {
                 Debug.Log("Keyword already in tooltip");
@@ -95,23 +103,22 @@ public class KeywordHandler : MonoBehaviour
             //Split Up text into segments, ingore the parts in <> brackets
             //Go through those parts and pattern match
 
-            Debug.Log("Current Text is " + text);
+            //Debug.Log("Current Text is " + text);
             var segments = SplitTextIntoSegments(text); //Split up text into segments split by <> brackets
             var processedSegments = new List<string>();
 
-            Debug.Log("Prossecing segments. There are " + segments.Count + " segments");
             foreach (var (segment, isInBrackets) in segments)
             {
                 string currentSegment = segment;
-                Debug.Log("Prossecing segment: " + currentSegment);
+                //Debug.Log("Prossecing segment: " + currentSegment);
                 if (string.IsNullOrWhiteSpace(currentSegment))
                 {
-                    Debug.Log("Segment: " + currentSegment + " is empty, ignoring");
+                    //Debug.Log("Segment: " + currentSegment + " is empty, ignoring");
                     continue;
                 }
                 if (isInBrackets)
                 {
-                    Debug.Log("Segment: " + currentSegment + " is already in <> brackets, ignoring");
+                    //Debug.Log("Segment: " + currentSegment + " is already in <> brackets, ignoring");
                     processedSegments.Add(currentSegment); //Add part to bracket, skip checking it
                     continue;
                 }
@@ -121,11 +128,11 @@ public class KeywordHandler : MonoBehaviour
 
                 if (match.Success)
                 {
-                    Debug.Log("Found Match! " + currentWording.wording + " for keyword " + currentWording.keyword.keywordName);
+                    //Debug.Log("Found Match! " + currentWording.wording + " for keyword " + currentWording.keyword.keywordName);
                     string matchedText = match.Groups[1].Value;
                     string linkId = currentWording.keyword.keywordName;
 
-                    Debug.Log("Added keyword " + currentWording.keyword.keywordName + " to activeKeywords list");
+                    //Debug.Log("Added keyword " + currentWording.keyword.keywordName + " to activeKeywords list");
                     activeKeywords.Add(currentWording.keyword);
 
                     string icon = !string.IsNullOrWhiteSpace(currentWording.keyword.icon) ? $"<sprite name=\"{currentWording.keyword.icon}\">": "";
@@ -143,7 +150,7 @@ public class KeywordHandler : MonoBehaviour
                 processedSegments.Add(currentSegment);
             }
             text = string.Concat(processedSegments);
-            Debug.Log("Text is now " + text + " from segments");
+            //Debug.Log("Text is now " + text + " from segments");
         }
 
         return text;

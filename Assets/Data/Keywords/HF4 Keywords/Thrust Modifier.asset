@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Thrust Modifier
   m_EditorClassIdentifier: 
   keywordName: Thrust Modifier
+  keywordType: 5
   wordings:
   - Thrust Modifier
   - Thrust Modifiers

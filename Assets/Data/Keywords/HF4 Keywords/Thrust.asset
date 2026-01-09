@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Thrust
   m_EditorClassIdentifier: 
   keywordName: Thrust
+  keywordType: 1
   wordings:
   - Thrust
   icon: Thrust
