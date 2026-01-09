@@ -1,15 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using static KeywordHandler;
 
 public class KeywordHandler : MonoBehaviour
 {
-	[SerializeField] public List<KeywordScriptableObject> keywords;
+    [Tooltip("The keywords used in the the game. Needs to be updated when you add new keywords.")]
+    [SerializeField] public List<KeywordScriptableObject> keywords;
     [SerializeField] public List<Wording> allWordings;
     [SerializeField] public List<Wording> activeKeywords;
 

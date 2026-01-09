@@ -15,9 +15,6 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	[SerializeField] string tooltipText;
 	[SerializeField] TooltipType tooltipType;
 
-	[SerializeField] Vector2 mousePos;
-
-
 	private void Start()
 	{
 		tooltipManager = FindAnyObjectByType<TooltipManager>();
@@ -87,7 +84,6 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void CreateTooltip(string message, Vector3 location)
     {
-        mousePos = location;
         if (message == null)
         {
             message = tooltipText;

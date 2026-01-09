@@ -24,7 +24,7 @@ public class TooltipManager : MonoBehaviour
 	[SerializeField] int borderSize = 8; // Size of the border around the tooltip
 	[SerializeField] int edgeOfScreenMargin = 15; // Margin from the edge of the screen */
 	[SerializeField] float tipNudge = 100f;
-    [SerializeField] float tooltipSizeDownwardFactor = 0.3f;
+    [SerializeField] float tooltipSizeDownwardFactor = 0.5f;
 
 	[Serializable]
 	public class Tooltip
@@ -120,6 +120,11 @@ public class TooltipManager : MonoBehaviour
 
     public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition)
     {
+		if (GetCallersTooltip(caller) != null)
+		{
+			return;
+		}
+
         Tooltip thisTooltip = GetFirstAvaibleTooltip();
         if (thisTooltip == null) { return; }
 

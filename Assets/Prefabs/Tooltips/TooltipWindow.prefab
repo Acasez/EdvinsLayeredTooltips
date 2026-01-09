@@ -393,6 +393,7 @@ MonoBehaviour:
   tooltipTextUI: {fileID: 3675031685061177864}
   tooltipWindowHeight: 0
   tooltipWindowExtraHeight: 5
+  tooltipWindowWidth: 500
   lockedBorders:
   - {fileID: 8124454957132806764}
   - {fileID: 4048470489455022849}
@@ -595,7 +596,6 @@ MonoBehaviour:
   tooltipManager: {fileID: 0}
   tooltipText: 
   tooltipType: 3
-  mousePos: {x: 0, y: 0}
 --- !u!114 &6821728646836164366
 MonoBehaviour:
   m_ObjectHideFlags: 0

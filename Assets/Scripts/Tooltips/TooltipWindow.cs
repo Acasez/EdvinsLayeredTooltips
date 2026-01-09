@@ -6,14 +6,20 @@ using UnityEngine.UI;
 
 public class TooltipWindow : MonoBehaviour
 {
-	[SerializeField] TextMeshProUGUI tooltipTextUI;
-	public float tooltipWindowHeight;
-	public float tooltipWindowExtraHeight;
+    [Header("References")]
+    [SerializeField] TextMeshProUGUI tooltipTextUI;
 
+    [Header("Settings")]
+    [SerializeField] float tooltipWindowHeight;
+    [SerializeField] float tooltipWindowExtraHeight;
+	[SerializeField] float tooltipWindowWidth;
+
+    [Header("Locked Borders")]
     [SerializeField] List<Image> lockedBorders;
 	public Color defaultBorderColor;
 	public Color lockedBorderColor;
 	public bool locked;
+
     public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler)
 	{
 		keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, tooltipTextUI, true);
@@ -24,7 +30,7 @@ public class TooltipWindow : MonoBehaviour
 	void SetTooltipSize()
 	{
 		tooltipWindowHeight = tooltipTextUI.preferredHeight + tooltipWindowExtraHeight;
-		transform.GetComponent<RectTransform>().sizeDelta = new Vector2(600, tooltipWindowHeight);
+		transform.GetComponent<RectTransform>().sizeDelta = new Vector2(tooltipWindowWidth, tooltipWindowHeight);
 	}
 
 	public void DisplayLockTooltip(bool setLocked)
