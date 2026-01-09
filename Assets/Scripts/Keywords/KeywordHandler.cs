@@ -12,6 +12,7 @@ public class KeywordHandler : MonoBehaviour
         Underline,
         Bold,
         Italic,
+        UnderlineBold
     }
 
     [Header("Lists")]
@@ -21,9 +22,8 @@ public class KeywordHandler : MonoBehaviour
     [SerializeField] public List<Wording> activeKeywords;
 
     [Header("Decoration")]
-    [SerializeField] HighlightStyleEnum highlightStyle;
-    [SerializeField] HighlightStyle chosenHighlightStyle;
-    [SerializeField] List<HighlightStyle> highlightStyles; 
+    [SerializeField] HighlightStyleEnum highlightStyleEnum;
+    [SerializeField] HighlightStyles.HighlightStyle highlightStyle;
 
     [Serializable]
     public class Wording
@@ -31,18 +31,18 @@ public class KeywordHandler : MonoBehaviour
 		public string wording;
 		public KeywordScriptableObject keyword;
     }
-    [Serializable]
-    public class HighlightStyle
-    {
-        public string name;
-        public HighlightStyleEnum highlightStyleEnum;
-        public string openingText;
-        public string closingText;
-    }
 
     private void Start()
     {
         MakeWordingList();
+        if (HighlightStyles.StyleMap.TryGetValue(highlightStyleEnum, out var style))
+        {
+            highlightStyle = style;
+        }
+        else
+        {
+            Debug.LogError($"No style found for {highlightStyleEnum}");
+        }
     }
 
     public void MakeWordingList()
@@ -90,7 +90,7 @@ public class KeywordHandler : MonoBehaviour
             //Split Up text into segments, ingore the parts in <> brackets
             //Go through those parts and pattern match
 
-            Debug.Log("Current Text is ");
+            Debug.Log("Current Text is " + text);
             var segments = SplitTextIntoSegments(text); //Split up text into segments split by <> brackets
             var processedSegments = new List<string>();
 
@@ -128,11 +128,11 @@ public class KeywordHandler : MonoBehaviour
                     // Conditionally wrap the matched text in <link> tags
                     if (createTooltips)
                     {
-                        currentSegment = currentSegment[..match.Index] + $"<link=\"{linkId}\"><u>{matchedText}</u></link>{icon}" + currentSegment[(match.Index + match.Length)..];
+                        currentSegment = currentSegment[..match.Index] + "<link=\"" + linkId + "\">" + highlightStyle.openingText + matchedText + highlightStyle.closingText + "</link>" + icon + currentSegment[(match.Index + match.Length)..];
                     }
                     else
                     {
-                        currentSegment = currentSegment[..match.Index] + $"<u>{matchedText}</u>{icon}" + currentSegment[(match.Index + match.Length)..];
+                        currentSegment = currentSegment[..match.Index] + highlightStyle.openingText + matchedText + highlightStyle.closingText + icon + currentSegment[(match.Index + match.Length)..];
                     }
                 }
                 processedSegments.Add(currentSegment);
@@ -144,7 +144,7 @@ public class KeywordHandler : MonoBehaviour
         textField.text = text;
     }
 
-    public static List<(string text, bool isInBrackets)> SplitTextIntoSegments(string text)
+    public List<(string text, bool isInBrackets)> SplitTextIntoSegments(string text)
     {
         var segments = new List<(string, bool)>();
         if (string.IsNullOrWhiteSpace(text))
@@ -158,33 +158,30 @@ public class KeywordHandler : MonoBehaviour
 
         for (int i = 0; i < text.Length; i++)
         {
-            if (text.Substring(i).StartsWith("<u>"))
+            // Check for the current highlight style's opening tag
+            if (text.Substring(i).StartsWith(highlightStyle.openingText))
             {
                 // Push current segment if not empty
                 if (i > start)
                 {
                     segments.Add((text.Substring(start, i - start), inBrackets));
                 }
-                stack.Push("<u>");
+                stack.Push(highlightStyle.openingText);
                 start = i;
                 inBrackets = true;
-                i += 2; // Skip past "<u"
+                i += highlightStyle.openingText.Length - 1; // Skip past openingText
             }
-            else if (text.Substring(i).StartsWith("</u>"))
+            else if (text.Substring(i).StartsWith(highlightStyle.closingText) && stack.Count > 0 && stack.Peek() == highlightStyle.openingText)
             {
-                // Pop and check if we're closing the outermost bracket
-                if (stack.Count > 0 && stack.Peek() == "<u>")
-                {
-                    stack.Pop();
-                    segments.Add((text.Substring(start, i - start + 4), true)); // Include "</u>"
-                    start = i + 4; // Skip past "</u>"
-                    inBrackets = (stack.Count > 0);
-                }
-                i += 3; // Skip past "</u>"
+                stack.Pop();
+                segments.Add((text.Substring(start, i - start + highlightStyle.closingText.Length), true));
+                start = i + highlightStyle.closingText.Length;
+                inBrackets = (stack.Count > 0);
+                i += highlightStyle.closingText.Length - 1; // Skip past closingText
             }
-            else if (text[i] == '<')
+            // Handle generic < and > tags 
+            else if (text[i] == '<' && !text.Substring(i).StartsWith(highlightStyle.openingText))
             {
-                // Handle other opening tags (e.g., <b>, <i>, etc.)
                 if (i > start)
                 {
                     segments.Add((text.Substring(start, i - start), inBrackets));
@@ -195,7 +192,6 @@ public class KeywordHandler : MonoBehaviour
             }
             else if (text[i] == '>' && stack.Count > 0 && stack.Peek() == "<")
             {
-                // Handle closing of other tags
                 stack.Pop();
                 segments.Add((text.Substring(start, i - start + 1), true));
                 start = i + 1;
@@ -211,5 +207,6 @@ public class KeywordHandler : MonoBehaviour
 
         return segments;
     }
+
 
 }

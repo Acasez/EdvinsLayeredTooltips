@@ -499,6 +499,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 751
       objectReference: {fileID: 0}
+    - target: {fileID: 1414834584552696733, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
+      propertyPath: keywordHandler
+      value: 
+      objectReference: {fileID: 1456633194}
     - target: {fileID: 1480033988937948433, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -796,7 +800,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7266544264189731703, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: m_Name
-      value: HFWKeywordHandler
+      value: HF4KeywordHandler
+      objectReference: {fileID: 0}
+    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
+      propertyPath: highlightStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
+      propertyPath: highlightStyleEnum
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: highlightStyle.name
@@ -804,7 +816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: keywords.Array.size
-      value: 62
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: highlightStyle.tmpText
@@ -813,19 +825,19 @@ PrefabInstance:
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: 'keywords.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: c4c276a6a1a394846a6916fbc1905a66, type: 2}
+      objectReference: {fileID: 11400000, guid: 11f0a97187df26d4d88b2c125cd8f926, type: 2}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: 'keywords.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 5280dea9f69e13e4d844556431f42360, type: 2}
+      objectReference: {fileID: 11400000, guid: 5d77dc2cd0daa9f4ba01011dafddd9df, type: 2}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: 'keywords.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 1d9e3cef0d161e9479d149ae5cd1ee6b, type: 2}
+      objectReference: {fileID: 11400000, guid: 162c404c2752eae4c93815100b6319d6, type: 2}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: 'keywords.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: 89124d02e91bf5d4983a1f3c2f4b6e05, type: 2}
+      objectReference: {fileID: 11400000, guid: 7067ddf9fb27999468ad666a2f62b11c, type: 2}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: 'keywords.Array.data[4]'
       value: 
@@ -1075,6 +1087,10 @@ PrefabInstance:
       value: Italic
       objectReference: {fileID: 0}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
+      propertyPath: highlightStyles.Array.data[3].name
+      value: Italic
+      objectReference: {fileID: 0}
+    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: highlightStyles.Array.data[0].tmpText
       value: <u>
       objectReference: {fileID: 0}
@@ -1107,6 +1123,14 @@ PrefabInstance:
       value: <i>
       objectReference: {fileID: 0}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
+      propertyPath: highlightStyles.Array.data[3].closingText
+      value: </i>
+      objectReference: {fileID: 0}
+    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
+      propertyPath: highlightStyles.Array.data[3].openingText
+      value: <i>
+      objectReference: {fileID: 0}
+    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: highlightStyles.Array.data[0].highlightStyleEnum
       value: 0
       objectReference: {fileID: 0}
@@ -1116,6 +1140,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
       propertyPath: highlightStyles.Array.data[2].highlightStyleEnum
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
+      propertyPath: highlightStyles.Array.data[3].highlightStyleEnum
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1511,6 +1539,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339552134}
   m_CullTransparentMesh: 1
+--- !u!114 &1456633194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
+  m_PrefabInstance: {fileID: 721119226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cbc7ed018011dd49b1af4941cff830f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1522030671
 GameObject:
   m_ObjectHideFlags: 0
