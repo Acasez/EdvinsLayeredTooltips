@@ -7,6 +7,7 @@ public static class HighlightStyles
     public static readonly HighlightStyle Bold = new("Bold", "<b>", "</b>", HighlightStyleEnum.Bold);
     public static readonly HighlightStyle Italic = new("Italic", "<i>", "</i>", HighlightStyleEnum.Italic);
     public static readonly HighlightStyle UnderlineBold = new("UnderlineBold", "<u><b>", "</u></b>", HighlightStyleEnum.UnderlineBold);
+    public static readonly HighlightStyle CK3Style = new("CK3Style", "<color=#67F9FF><b>", "</color></b>", HighlightStyleEnum.CK3Style);
 
     // Dictionary to map enum values to styles
     public static readonly Dictionary<HighlightStyleEnum, HighlightStyle> StyleMap = new()
@@ -15,6 +16,7 @@ public static class HighlightStyles
         { HighlightStyleEnum.Bold, Bold },
         { HighlightStyleEnum.Italic, Italic },
         { HighlightStyleEnum.UnderlineBold, UnderlineBold },
+        { HighlightStyleEnum.CK3Style, CK3Style },
     };
 
     public class HighlightStyle

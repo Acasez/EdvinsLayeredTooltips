@@ -12,7 +12,8 @@ public class KeywordHandler : MonoBehaviour
         Underline,
         Bold,
         Italic,
-        UnderlineBold
+        UnderlineBold,
+        CK3Style
     }
 
     [Header("Lists")]
