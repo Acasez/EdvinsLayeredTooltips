@@ -76,7 +76,7 @@ public class TooltipManager : MonoBehaviour
 			tooltip.locked = false;
 			tooltip.tooltipWindow.DisplayLockTooltip(false);
 			if (!tooltip.trigger.IsPointerOverTooltip()) { //Remove tooltip if the mouse isn't there currently
-                RemoveTooltip(tooltip);
+                RemoveTooltip(tooltip, true);
             }
 		}
 		else
@@ -186,13 +186,13 @@ public class TooltipManager : MonoBehaviour
 	{
 		Tooltip thisTooltip = GetCallersTooltip(caller);
 
-		RemoveTooltip(thisTooltip);
+		RemoveTooltip(thisTooltip, false);
 	}
 
-	public void RemoveTooltip(Tooltip thisTooltip)
+	public void RemoveTooltip(Tooltip thisTooltip, bool trueRemove)
 	{
         if (thisTooltip == null) { return; };
-        if (thisTooltip.locked)
+        if (thisTooltip.locked || trueRemove)
         {
             return;
         }
@@ -214,7 +214,7 @@ public class TooltipManager : MonoBehaviour
             if (tooltips[i].active)
 			{
 				Debug.Log("Removing tooltip " + i);
-				RemoveTooltip(tooltips[i]);
+				RemoveTooltip(tooltips[i], true);
             }
         }
     }

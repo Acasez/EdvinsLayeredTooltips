@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
   m_Name: Rad-Hard
   m_EditorClassIdentifier: 
-  keyword: Rad-Hard
+  keywordName: Radiation Hardness
+  keywordType: 0
   wordings:
   - Rad-Hard
   - Rad Hard

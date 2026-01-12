@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
   m_Name: Solar Cycle
   m_EditorClassIdentifier: 
-  keyword: Solar Cycle
+  keywordName: Solar Cycle
+  keywordType: 0
   wordings:
-  - sunspot cycles
-  - sunspot cycle
-  - solar cycle
-  - solar cycles
+  - Sunspot cycles
+  - Sunspot cycle
+  - Solar cycle
+  - Solar cycles
   icon: Solar Cycle
   tooltipText: The Solar or Sunspot cycle tracks the flow of time. Its current position
     determines which events are possible.

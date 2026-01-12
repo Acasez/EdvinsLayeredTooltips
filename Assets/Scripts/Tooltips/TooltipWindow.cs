@@ -36,9 +36,9 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
     public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler, KeywordScriptableObject keyword)
 	{
 		tooltipTextUI.text = "";
-        if (keyword != null && showTitle == true)
+        if (keyword != null && showTitle == true && keyword.keywordName.Length > 0)
 		{
-			tooltipTextUI.text += "<size=" + titleTextSize + "%>" + keyword.keywordName + "<size=100%>\n";
+			tooltipTextUI.text += "<b><size=" + titleTextSize + "%>" + keyword.keywordName + "<size=100%></b>\n";
             if (keyword.keywordType != KeywordHandler.KeywordType.None)
             {
                 tooltipTextUI.text += "<size=" + typeTextSize + "%>" + keyword.keywordType + "<size=100%>\n";
@@ -71,6 +71,16 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-		tooltipManager.RemoveTooltip(tooltip);
+		tooltipManager.RemoveTooltip(tooltip, false);
     }
+
+    private void OnDestroy()
+    {
+		RemoveTooltip();
+    }
+
+    public void RemoveTooltip()
+	{
+		tooltipManager.RemoveTooltip(tooltip, true);
+	}
 }

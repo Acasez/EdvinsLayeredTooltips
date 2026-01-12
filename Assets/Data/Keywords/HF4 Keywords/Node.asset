@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
   m_Name: Node
   m_EditorClassIdentifier: 
-  keyword: Node
+  keywordName: Node
+  keywordType: 0
   wordings:
   - Location
+  - Node
   icon: 
   tooltipText: 'Nodes or locations are places on the map that can be moved to. '

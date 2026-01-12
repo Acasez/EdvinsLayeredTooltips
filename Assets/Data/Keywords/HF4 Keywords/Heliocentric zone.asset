@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
   m_Name: Heliocentric zone
   m_EditorClassIdentifier: 
-  keyword: Heliocentric zone
+  keywordName: Heliocentric Zone
+  keywordType: 0
   wordings:
-  - Heliocentric zone
+  - Heliocentric Zone
   icon: 
   tooltipText: The map is divided into 9 Heliocentric zones, based on distance from
     the sun. The first player to land on a site in each zone with a crew card gets

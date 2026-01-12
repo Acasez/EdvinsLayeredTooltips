@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
   m_Name: Victory Points
   m_EditorClassIdentifier: 
-  keyword: Victory Points
+  keywordName: Victory Points
+  keywordType: 0
   wordings:
   - Victory Points
+  - VP
   icon: 
   tooltipText: Collecting Victory Points (VP) is the goal of the game. Players score
     VP for each Claim, Factory, Colony and Glory Chit they have
