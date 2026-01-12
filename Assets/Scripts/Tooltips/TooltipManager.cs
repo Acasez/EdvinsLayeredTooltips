@@ -192,11 +192,11 @@ public class TooltipManager : MonoBehaviour
 	public void RemoveTooltip(Tooltip thisTooltip, bool trueRemove)
 	{
         if (thisTooltip == null) { return; };
-        if (thisTooltip.locked || trueRemove)
+        if (thisTooltip.locked && trueRemove == false)
         {
             return;
         }
-		//RemoveTooltipsAboveThis(thisTooltip);
+		RemoveTooltipsAboveThis(thisTooltip);
 
         thisTooltip.active = false;
         thisTooltip.trigger = null;
