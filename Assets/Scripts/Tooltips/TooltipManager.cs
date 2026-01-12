@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditor.FilePathAttribute;
+using UnityEngine.InputSystem;
 
 public class TooltipManager : MonoBehaviour 
 {
@@ -58,18 +57,26 @@ public class TooltipManager : MonoBehaviour
     }
 
     private void Update()
-	{
-		if (Input.GetMouseButtonDown(2))
-		{
-			Tooltip topTooltip = GetTopTooltip();
-			if (topTooltip != null)
-			{
-				LockUnlockTooltip(topTooltip);
-			}
-		}
-	}
+    {
+		//This setup looks a bit ugly but works weather your using the the old or new input system.
+        bool isRightClick =
+#if ENABLE_LEGACY_INPUT_MANAGER
+            Input.GetMouseButtonDown(2);
+#else
+            Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame;
+#endif
 
-	public void LockUnlockTooltip(Tooltip tooltip)
+        if (isRightClick)
+        {
+            Tooltip topTooltip = GetTopTooltip();
+            if (topTooltip != null)
+            {
+                LockUnlockTooltip(topTooltip);
+            }
+        }
+    }
+
+    public void LockUnlockTooltip(Tooltip tooltip)
 	{
 		if (tooltip.locked)
 		{
@@ -191,7 +198,7 @@ public class TooltipManager : MonoBehaviour
 
 	public void RemoveTooltip(Tooltip thisTooltip, bool trueRemove)
 	{
-        if (thisTooltip == null) { return; };
+        if (thisTooltip == null || thisTooltip.tooltipWindow == null) { return; };
         if (thisTooltip.locked && trueRemove == false)
         {
             return;

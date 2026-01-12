@@ -54,11 +54,20 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		tooltipManager.RemoveCallersTooltip(this);
 	}
 
-	private IEnumerator StartTimer()
+    public Vector3 GetMousePosition()
+    {
+#if ENABLE_LEGACY_INPUT_MANAGER
+        return Input.mousePosition;
+#else
+    return Mouse.current.position.ReadValue();
+#endif
+    }
+
+    private IEnumerator StartTimer()
 	{
 		yield return new WaitForSeconds(0.5f);
 		DestroyPreviousTooltip();
-		CreateTooltip(null, Input.mousePosition, null);
+		CreateTooltip(null, GetMousePosition(), null);
 	}
 
 	public bool IsPointerOverTooltip()
@@ -77,7 +86,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
 
         // Convert mouse position to screen point
-        Vector2 mouseScreenPos = Input.mousePosition;
+        Vector2 mouseScreenPos = GetMousePosition();
 
         // Check if the mouse is over the tooltip
         return RectTransformUtility.RectangleContainsScreenPoint(tooltipRect, mouseScreenPos);

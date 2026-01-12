@@ -31,7 +31,7 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
             return;
         }
 
-        int linkIndex = TMP_TextUtilities.FindIntersectingLink(textMeshPro, Input.mousePosition, null);
+        int linkIndex = TMP_TextUtilities.FindIntersectingLink(textMeshPro, trigger.GetMousePosition(), null);
         if (linkIndex != -1 && linkIndex != lastLinkIndex)
         {
             lastLinkIndex = linkIndex;
@@ -43,7 +43,7 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
                 KeywordScriptableObject keyword = GetKeyword(linkedWord);
                 if (keyword != null)
                 {
-                    trigger.CreateTooltip(keyword.tooltipText, Input.mousePosition, keyword);
+                    trigger.CreateTooltip(keyword.tooltipText, trigger.GetMousePosition(), keyword);
                 }
             }
         }
