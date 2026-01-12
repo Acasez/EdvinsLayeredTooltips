@@ -63,7 +63,7 @@ public class TooltipManager : MonoBehaviour
 #if ENABLE_LEGACY_INPUT_MANAGER
             Input.GetMouseButtonDown(2);
 #else
-            Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame;
+            Mouse.current != null && Mouse.current.middleButton.wasPressedThisFrame;
 #endif
 
         if (isRightClick)
