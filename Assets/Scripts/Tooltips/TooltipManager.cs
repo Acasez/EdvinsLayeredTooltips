@@ -9,8 +9,11 @@ using UnityEngine.InputSystem;
 public class TooltipManager : MonoBehaviour 
 {
     [Header("Settings")]
+    [Tooltip("How many tooltips there should be. I would suggest like 5, but any amount is fine.")]
+    [SerializeField][Range(1, 25)] int tooltipAmount = 5;
     [SerializeField] List<Tooltip> tooltips;
 	[SerializeField] bool mobile;
+    [SerializeField] TooltipWindow tooltipWindowPrefab;
 
     [Header("Canvas")]
     [SerializeField] Canvas canvas;
@@ -25,9 +28,12 @@ public class TooltipManager : MonoBehaviour
     [Header("Tooltip Text Settings")]
 	/* Might wanna keep these for later adjustments
 	[SerializeField] int lineWidth = 200; // Maximum width of the tooltip text
-	[SerializeField] int borderSize = 8; // Size of the border around the tooltip
-	[SerializeField] int edgeOfScreenMargin = 15; // Margin from the edge of the screen */
-	[SerializeField] float tipNudge = 100f;
+	[SerializeField] int borderSize = 8; // Size of the border around the tooltip*/
+	[Tooltip("Margin from the edge of the screen")]
+    [SerializeField] int edgeOfScreenMargin = 15;
+    [Tooltip("How far down the tooltip is from mouse position")]
+    [SerializeField] float tipNudge = 100f;
+    [Tooltip("How far down the tooltip is from mouse position, based on the tooltips height")]
     [SerializeField] float tooltipSizeDownwardFactor = 0.5f;
 
 	[Serializable]
@@ -38,11 +44,6 @@ public class TooltipManager : MonoBehaviour
 		public bool active;
 		public bool locked;
 	}
-
-    public List<KeywordScriptableObject> GetKeywords()
-    {
-        return keywordHandler.keywords;
-    }
 
     private void Start()
     {
@@ -56,6 +57,16 @@ public class TooltipManager : MonoBehaviour
 		{
 			mobile = false;
 		}
+        for (int i = 0; i < tooltipAmount; i++)
+        {
+            Tooltip currentTooltip = new();
+
+            currentTooltip.tooltipWindow = Instantiate(tooltipWindowPrefab, canvas.transform);
+            currentTooltip.tooltipWindow.SetReferenceTooltip(currentTooltip);
+            currentTooltip.trigger = currentTooltip.tooltipWindow.GetComponentInChildren<TooltipTrigger>();
+            tooltips.Add(currentTooltip);
+            RemoveTooltip(currentTooltip, true);
+        }
     }
 
     private void Update()
@@ -76,6 +87,10 @@ public class TooltipManager : MonoBehaviour
                 LockUnlockTooltip(topTooltip);
             }
         }
+    }
+    public List<KeywordScriptableObject> GetKeywords()
+    {
+        return keywordHandler.keywords;
     }
 
     public void LockUnlockTooltip(Tooltip tooltip)

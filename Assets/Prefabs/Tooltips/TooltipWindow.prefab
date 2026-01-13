@@ -527,7 +527,7 @@ MonoBehaviour:
   tooltipManager: {fileID: 0}
   tooltip:
     tooltipWindow: {fileID: 0}
-    trigger: {fileID: 0}
+    trigger: {fileID: 8902611860584311450}
     active: 0
     locked: 0
   tooltipWindowHeight: 0
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipManager: {fileID: 0}
   tooltipText: 
-  tooltipType: 3
+  tooltipType: 1
   tooltipWindow: {fileID: 5895633090016677584}
 --- !u!114 &6821728646836164366
 MonoBehaviour:

@@ -28,7 +28,16 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
 	public Color lockedBorderColor;
 	public bool locked;
 
-	public void SetReferenceTooltip(TooltipManager.Tooltip tooltipRef)
+    private void Start()
+    {
+        tooltipManager = FindAnyObjectByType<TooltipManager>();
+        if (tooltipManager == null)
+        {
+            Debug.LogWarning("No tooltipManager!");
+        }
+    }
+
+    public void SetReferenceTooltip(TooltipManager.Tooltip tooltipRef)
 	{
 		tooltip = tooltipRef;
 	}
@@ -81,6 +90,7 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
 
     public void RemoveTooltip()
 	{
-		tooltipManager.RemoveTooltip(tooltip, true);
+        if (tooltipManager == null) return;
+        tooltipManager.RemoveTooltip(tooltip, true);
 	}
 }

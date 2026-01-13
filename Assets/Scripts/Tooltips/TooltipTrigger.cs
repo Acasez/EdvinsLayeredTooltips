@@ -13,9 +13,11 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		UI,
 		Keyword, //Add more types if you want
 	}
+    [Header("References")]
+    [SerializeField] TooltipManager tooltipManager;
 
-	[SerializeField] TooltipManager tooltipManager;
-	[SerializeField] string tooltipText;
+    [Header("Variables")]
+    [SerializeField] string tooltipText;
 	[SerializeField] TooltipType tooltipType;
     [SerializeField] TooltipWindow tooltipWindow;
 
