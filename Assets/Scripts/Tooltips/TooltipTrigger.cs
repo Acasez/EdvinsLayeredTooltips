@@ -122,4 +122,9 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 		return false;
 	}
+
+    public void SetTooltipText(string text)
+    {
+        tooltipText = text;
+    }
 }
