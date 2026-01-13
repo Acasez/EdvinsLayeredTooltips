@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
-
+#endif
 public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitHandler
 {
     [Header("Values")]
