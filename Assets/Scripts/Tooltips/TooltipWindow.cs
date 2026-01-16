@@ -13,7 +13,7 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
     [SerializeField] TooltipManager.Tooltip tooltip;
 
     [Header("Settings")]
-    [SerializeField] float tooltipWindowHeight;
+    float tooltipWindowHeight;
     [SerializeField] float tooltipWindowExtraHeight;
 	[SerializeField] float tooltipWindowWidth;
 

@@ -34,9 +34,7 @@ public class KeywordHandler : MonoBehaviour
     [SerializeField] public List<Wording> activeKeywords;
 
     [Header("Decoration")]
-    [Tooltip("The tooltip style. More can be added in the Highlight Style script")]
-    [SerializeField] HighlightStyleEnum highlightStyleEnum;
-    [SerializeField] HighlightStyles.HighlightStyle highlightStyle;
+    [SerializeField] TooltipWindowStyle tooltipWindowStyle;
 
     [Serializable]
     public class Wording
@@ -48,14 +46,6 @@ public class KeywordHandler : MonoBehaviour
     private void Start()
     {
         MakeWordingList();
-        if (HighlightStyles.StyleMap.TryGetValue(highlightStyleEnum, out var style))
-        {
-            highlightStyle = style;
-        }
-        else
-        {
-            Debug.LogError($"No style found for {highlightStyleEnum}");
-        }
     }
 
     public void MakeWordingList()
@@ -73,8 +63,7 @@ public class KeywordHandler : MonoBehaviour
             }
 		}
 
-        // Sort allWordings by the number of spaces in the wording (descending).
-        // Use 0 for null wording strings.
+        // Sort allWordings by the number of spaces in the wording (descending). Using 0 for null wording strings.
         allWordings = allWordings.OrderByDescending(w => (w?.wording?.Count(c => c == ' ')) ?? 0).ToList();
     }
 
@@ -140,11 +129,11 @@ public class KeywordHandler : MonoBehaviour
                     // Conditionally wrap the matched text in <link> tags
                     if (createTooltips)
                     {
-                        currentSegment = currentSegment[..match.Index] + "<link=\"" + linkId + "\">" + highlightStyle.openingText + matchedText + highlightStyle.closingText + "</link>" + icon + currentSegment[(match.Index + match.Length)..];
+                        currentSegment = currentSegment[..match.Index] + "<link=\"" + linkId + "\">" + tooltipWindowStyle.openingText + matchedText + tooltipWindowStyle.closingText + "</link>" + icon + currentSegment[(match.Index + match.Length)..];
                     }
                     else
                     {
-                        currentSegment = currentSegment[..match.Index] + highlightStyle.openingText + matchedText + highlightStyle.closingText + icon + currentSegment[(match.Index + match.Length)..];
+                        currentSegment = currentSegment[..match.Index] + tooltipWindowStyle.openingText + matchedText + tooltipWindowStyle.closingText + icon + currentSegment[(match.Index + match.Length)..];
                     }
                 }
                 processedSegments.Add(currentSegment);
@@ -171,28 +160,28 @@ public class KeywordHandler : MonoBehaviour
         for (int i = 0; i < text.Length; i++)
         {
             // Check for the current highlight style's opening tag
-            if (text.Substring(i).StartsWith(highlightStyle.openingText))
+            if (text.Substring(i).StartsWith(tooltipWindowStyle.openingText))
             {
                 // Push current segment if not empty
                 if (i > start)
                 {
                     segments.Add((text.Substring(start, i - start), inBrackets));
                 }
-                stack.Push(highlightStyle.openingText);
+                stack.Push(tooltipWindowStyle.openingText);
                 start = i;
                 inBrackets = true;
-                i += highlightStyle.openingText.Length - 1; // Skip past openingText
+                i += tooltipWindowStyle.openingText.Length - 1; // Skip past openingText
             }
-            else if (text.Substring(i).StartsWith(highlightStyle.closingText) && stack.Count > 0 && stack.Peek() == highlightStyle.openingText)
+            else if (text.Substring(i).StartsWith(tooltipWindowStyle.closingText) && stack.Count > 0 && stack.Peek() == tooltipWindowStyle.openingText)
             {
                 stack.Pop();
-                segments.Add((text.Substring(start, i - start + highlightStyle.closingText.Length), true));
-                start = i + highlightStyle.closingText.Length;
+                segments.Add((text.Substring(start, i - start + tooltipWindowStyle.closingText.Length), true));
+                start = i + tooltipWindowStyle.closingText.Length;
                 inBrackets = (stack.Count > 0);
-                i += highlightStyle.closingText.Length - 1; // Skip past closingText
+                i += tooltipWindowStyle.closingText.Length - 1; // Skip past closingText
             }
             // Handle generic < and > tags 
-            else if (text[i] == '<' && !text.Substring(i).StartsWith(highlightStyle.openingText))
+            else if (text[i] == '<' && !text.Substring(i).StartsWith(tooltipWindowStyle.openingText))
             {
                 if (i > start)
                 {

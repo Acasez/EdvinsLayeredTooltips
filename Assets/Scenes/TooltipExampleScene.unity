@@ -511,6 +511,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7148879821461226262, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
+      propertyPath: tooltipWindowStyle
+      value: 
+      objectReference: {fileID: 11400000, guid: d44a623d31653564cb92e33f7599d6ff, type: 2}
+    - target: {fileID: 7148879821461226262, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
       propertyPath: keywords.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -991,6 +995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
   tooltipManager: {fileID: 471956127}
+  linkedKeyword: {fileID: 0}
   tooltipText: This is a tooltip. You can hover over keywords
   tooltipType: 0
   tooltipWindow: {fileID: 0}
@@ -1239,6 +1244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
   tooltipManager: {fileID: 471956127}
+  linkedKeyword: {fileID: 0}
   tooltipText: The Thrust Area is the golden square on the bottom left of patents
     that shows its stats when used as a Thruster or Thrust Modifier. In this area,
     the patent's Thrust and Fuel Consumption are shown.
@@ -1333,6 +1339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
   tooltipManager: {fileID: 471956127}
+  linkedKeyword: {fileID: 0}
   tooltipText: Keyword Handling is hard
   tooltipType: 0
   tooltipWindow: {fileID: 0}
@@ -1425,6 +1432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
   tooltipManager: {fileID: 471956127}
+  linkedKeyword: {fileID: 0}
   tooltipText: Thrust, Thrust Area and Thrust Modifier can be diffrent keywords
   tooltipType: 0
   tooltipWindow: {fileID: 0}
@@ -1517,6 +1525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
   tooltipManager: {fileID: 471956127}
+  linkedKeyword: {fileID: 0}
   tooltipText: Hover over text is the longest keyword
   tooltipType: 0
   tooltipWindow: {fileID: 0}

@@ -530,7 +530,6 @@ MonoBehaviour:
     trigger: {fileID: 8902611860584311450}
     active: 0
     locked: 0
-  tooltipWindowHeight: 0
   tooltipWindowExtraHeight: 5
   tooltipWindowWidth: 500
   showTitle: 1

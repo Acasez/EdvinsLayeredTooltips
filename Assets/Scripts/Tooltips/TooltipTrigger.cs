@@ -11,10 +11,12 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	public enum TooltipType
 	{
 		UI,
-		Keyword, //Add more types if you want
+		KeywordTrigger, 
+		LinkedKeyword
 	}
     [Header("References")]
     [SerializeField] TooltipManager tooltipManager;
+	[SerializeField] KeywordScriptableObject linkedKeyword;
 
     [Header("Variables")]
     [SerializeField] string tooltipText;
@@ -28,10 +30,14 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		{
 			Debug.LogWarning("No tooltipManager!");
 		}
+		if (tooltipType == TooltipType.LinkedKeyword &&  linkedKeyword != null)
+		{
+			tooltipText = linkedKeyword.tooltipText;
+		}
 	}
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		if (tooltipType == TooltipType.Keyword)
+		if (tooltipType == TooltipType.KeywordTrigger)
 		{
 			return; //Triggered by the KeywordTooltip script
 		}
