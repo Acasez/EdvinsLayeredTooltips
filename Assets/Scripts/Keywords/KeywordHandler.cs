@@ -131,7 +131,12 @@ public class KeywordHandler : MonoBehaviour
                     //Debug.Log("Added keyword " + currentWording.keyword.keywordName + " to activeKeywords list");
                     activeKeywords.Add(currentWording.keyword);
 
-                    string icon = !string.IsNullOrWhiteSpace(currentWording.keyword.icon) ? $"<sprite name=\"{currentWording.keyword.icon}\">": "";
+                    //Set icon to correct sprite sheet name, if one exists
+                    string icon = "";
+                    if (!string.IsNullOrWhiteSpace(currentWording.keyword.icon))
+                    {
+                        icon = "<sprite name=\"" + currentWording.keyword.icon + "\">";
+                    }
 
                     // Conditionally wrap the matched text in <link> tags
                     if (createTooltips)

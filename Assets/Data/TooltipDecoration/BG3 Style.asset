@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TooltipWindowStyle
   styleName: BG3 Style
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.8}
+  defaultBorderColor: {r: 1, g: 1, b: 1, a: 0.29803923}
+  lockedBorderColor: {r: 1, g: 0.78468615, b: 0, a: 1}
   textColor: {r: 1, g: 1, b: 1, a: 1}
   keywordColor: {r: 1, g: 0.58587927, b: 0, a: 0}
   bold: 0

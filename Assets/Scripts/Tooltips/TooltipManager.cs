@@ -21,8 +21,6 @@ public class TooltipManager : MonoBehaviour
 
     [Header("Keywords")]
 	[SerializeField] KeywordHandler keywordHandler;
-    [Tooltip("Weather the keyword's title should be displayed at the top of the tooltip")]
-    [SerializeField] bool showTooltipTitle;
 
     [Header("Tooltip Text Settings")]
 	/* Might wanna keep these for later adjustments

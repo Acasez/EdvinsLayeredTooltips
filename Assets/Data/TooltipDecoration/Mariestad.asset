@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TooltipWindowStyle
   styleName: Mariestad
   backgroundColor: {r: 1, g: 1, b: 1, a: 0.8}
+  defaultBorderColor: {r: 1, g: 1, b: 1, a: 0.29803923}
+  lockedBorderColor: {r: 1, g: 0.78468615, b: 0, a: 1}
   textColor: {r: 0, g: 0, b: 0, a: 1}
+  showTitle: 1
+  titleTextSize: 125
+  typeTextSize: 110
+  keywordIconNextToTitle: 1
   keywordColor: {r: 0.1490565, g: 1, b: 0.45661253, a: 1}
   bold: 0
   italic: 0
