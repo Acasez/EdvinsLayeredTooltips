@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: BG3 Style
   m_EditorClassIdentifier: Assembly-CSharp::TooltipWindowStyle
   styleName: BG3 Style
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.8}
   textColor: {r: 1, g: 1, b: 1, a: 1}
   keywordColor: {r: 1, g: 0.58587927, b: 0, a: 0}
   bold: 0
   italic: 0
   underline: 0
-  openingText: <color=#FF9500><b><u>
-  closingText: </color></b></u>
+  openingText: <color=#FF9500>
+  closingText: </color>

@@ -21,7 +21,6 @@ public class TooltipManager : MonoBehaviour
 
     [Header("Keywords")]
 	[SerializeField] KeywordHandler keywordHandler;
-
     [Tooltip("Weather the keyword's title should be displayed at the top of the tooltip")]
     [SerializeField] bool showTooltipTitle;
 
@@ -36,7 +35,10 @@ public class TooltipManager : MonoBehaviour
     [Tooltip("How far down the tooltip is from mouse position, based on the tooltips height")]
     [SerializeField] float tooltipSizeDownwardFactor = 0.5f;
 
-	[Serializable]
+    [Header("Decoration")]
+    [SerializeField] TooltipWindowStyle tooltipWindowStyle;
+
+    [Serializable]
 	public class Tooltip
 	{
 		public TooltipWindow tooltipWindow;
@@ -62,7 +64,7 @@ public class TooltipManager : MonoBehaviour
             Tooltip currentTooltip = new();
 
             currentTooltip.tooltipWindow = Instantiate(tooltipWindowPrefab, canvas.transform);
-            currentTooltip.tooltipWindow.SetReferenceTooltip(currentTooltip);
+            currentTooltip.tooltipWindow.SetReferences(this, currentTooltip);
             currentTooltip.trigger = currentTooltip.tooltipWindow.GetComponentInChildren<TooltipTrigger>();
             tooltips.Add(currentTooltip);
             RemoveTooltip(currentTooltip, true);
@@ -91,6 +93,11 @@ public class TooltipManager : MonoBehaviour
     public List<KeywordScriptableObject> GetKeywords()
     {
         return keywordHandler.keywords;
+    }
+
+    public TooltipWindowStyle GetTooltipDecoration()
+    {
+        return tooltipWindowStyle;
     }
 
     public void LockUnlockTooltip(Tooltip tooltip)
@@ -160,7 +167,7 @@ public class TooltipManager : MonoBehaviour
         thisTooltip.trigger = caller;
 
         thisTooltip.tooltipWindow.gameObject.SetActive(true);
-		thisTooltip.tooltipWindow.SetReferenceTooltip(thisTooltip);
+		thisTooltip.tooltipWindow.SetReferences(this, thisTooltip);
         thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler, keyword);
 
         RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();

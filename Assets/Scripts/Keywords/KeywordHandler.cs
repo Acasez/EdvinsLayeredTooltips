@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using TMPro;
 using UnityEngine;
 
 public class KeywordHandler : MonoBehaviour
@@ -33,8 +32,10 @@ public class KeywordHandler : MonoBehaviour
     [SerializeField] public List<Wording> allWordings;
     [SerializeField] public List<Wording> activeKeywords;
 
-    [Header("Decoration")]
-    [SerializeField] TooltipWindowStyle tooltipWindowStyle;
+    TooltipWindowStyle tooltipWindowStyle;
+
+    [Header("References")]
+    [SerializeField] TooltipManager tooltipManager;
 
     [Serializable]
     public class Wording
@@ -46,6 +47,12 @@ public class KeywordHandler : MonoBehaviour
     private void Start()
     {
         MakeWordingList();
+        tooltipManager = FindAnyObjectByType<TooltipManager>();
+        if (tooltipManager == null)
+        {
+            Debug.LogWarning("No tooltipManager!");
+        }
+        tooltipWindowStyle = tooltipManager.GetTooltipDecoration();
     }
 
     public void MakeWordingList()
@@ -67,7 +74,7 @@ public class KeywordHandler : MonoBehaviour
         allWordings = allWordings.OrderByDescending(w => (w?.wording?.Count(c => c == ' ')) ?? 0).ToList();
     }
 
-    public string AddKeywordsToTextFromWordingList(string text, bool createTooltips, KeywordScriptableObject keyword)
+    public string AddKeywordsToText(string text, bool createTooltips, KeywordScriptableObject keyword)
     {
         if (allWordings.Count == 0)
         {
@@ -90,12 +97,12 @@ public class KeywordHandler : MonoBehaviour
                 continue;
             }
             //Split Up text into segments, ingore the parts in <> brackets
-            //Go through those parts and pattern match
 
             //Debug.Log("Current Text is " + text);
             var segments = SplitTextIntoSegments(text); //Split up text into segments split by <> brackets
             var processedSegments = new List<string>();
 
+            //Go through those parts and pattern match
             foreach (var (segment, isInBrackets) in segments)
             {
                 string currentSegment = segment;

@@ -470,6 +470,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 834189167}
     m_Modifications:
+    - target: {fileID: 1414834584552696733, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
+      propertyPath: tooltipWindowStyle
+      value: 
+      objectReference: {fileID: 11400000, guid: d44a623d31653564cb92e33f7599d6ff, type: 2}
     - target: {fileID: 6931499719455827684, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -999,6 +1003,7 @@ MonoBehaviour:
   tooltipText: This is a tooltip. You can hover over keywords
   tooltipType: 0
   tooltipWindow: {fileID: 0}
+  tooltipTriggerTime: 0
 --- !u!114 &736815454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1250,6 +1255,7 @@ MonoBehaviour:
     the patent's Thrust and Fuel Consumption are shown.
   tooltipType: 0
   tooltipWindow: {fileID: 0}
+  tooltipTriggerTime: 0
 --- !u!114 &1339552137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,6 +1349,7 @@ MonoBehaviour:
   tooltipText: Keyword Handling is hard
   tooltipType: 0
   tooltipWindow: {fileID: 0}
+  tooltipTriggerTime: 0
 --- !u!114 &1522030674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1436,6 +1443,7 @@ MonoBehaviour:
   tooltipText: Thrust, Thrust Area and Thrust Modifier can be diffrent keywords
   tooltipType: 0
   tooltipWindow: {fileID: 0}
+  tooltipTriggerTime: 0
 --- !u!114 &1617618732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1529,6 +1537,7 @@ MonoBehaviour:
   tooltipText: Hover over text is the longest keyword
   tooltipType: 0
   tooltipWindow: {fileID: 0}
+  tooltipTriggerTime: 0
 --- !u!114 &2037317170
 MonoBehaviour:
   m_ObjectHideFlags: 0

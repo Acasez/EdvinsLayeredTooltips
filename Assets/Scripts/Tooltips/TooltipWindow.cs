@@ -7,8 +7,11 @@ using UnityEngine.UI;
 
 public class TooltipWindow : MonoBehaviour, IPointerExitHandler
 {
-    [Header("References")]
+    [Header("Local References")]
     [SerializeField] TextMeshProUGUI tooltipTextUI;
+    [SerializeField] Image tooltipBackground;
+
+    [Header("Set References")]
     [SerializeField] TooltipManager tooltipManager;
     [SerializeField] TooltipManager.Tooltip tooltip;
 
@@ -28,19 +31,13 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
 	public Color lockedBorderColor;
 	public bool locked;
 
-    private void Start()
+    public void SetReferences(TooltipManager tooltipManagerRef, TooltipManager.Tooltip tooltipRef)
     {
-        tooltipManager = FindAnyObjectByType<TooltipManager>();
-        if (tooltipManager == null)
-        {
-            Debug.LogWarning("No tooltipManager!");
-        }
+        tooltipManager = tooltipManagerRef;
+        tooltip = tooltipRef;
+        tooltipBackground.color = tooltipManager.GetTooltipDecoration().backgroundColor;
     }
 
-    public void SetReferenceTooltip(TooltipManager.Tooltip tooltipRef)
-	{
-		tooltip = tooltipRef;
-	}
 
     public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler, KeywordScriptableObject keyword)
 	{
@@ -53,8 +50,9 @@ public class TooltipWindow : MonoBehaviour, IPointerExitHandler
                 tooltipTextUI.text += "<size=" + typeTextSize + "%>" + keyword.keywordType + "<size=100%>\n";
             }
         }
-        tooltipTextUI.text += keywordHandler.AddKeywordsToTextFromWordingList(tooltipText, true, keyword);
-		SetTooltipSize();
+        tooltipTextUI.text += keywordHandler.AddKeywordsToText(tooltipText, true, keyword);
+        tooltipTextUI.color = tooltipManager.GetTooltipDecoration().textColor;
+        SetTooltipSize();
 	}
 
 	void SetTooltipSize()

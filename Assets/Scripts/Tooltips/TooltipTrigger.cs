@@ -22,6 +22,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] string tooltipText;
 	[SerializeField] TooltipType tooltipType;
     [SerializeField] TooltipWindow tooltipWindow;
+	[SerializeField] float tooltipTriggerTime;
 
     private void Start()
 	{
@@ -76,7 +77,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private IEnumerator StartTimer()
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(tooltipTriggerTime);
 		DestroyPreviousTooltip();
 		CreateTooltip(null, GetMousePosition(), null);
 	}

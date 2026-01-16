@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipTextUI: {fileID: 3675031685061177864}
+  tooltipBackground: {fileID: 8540125544996547325}
   tooltipManager: {fileID: 0}
   tooltip:
     tooltipWindow: {fileID: 0}
@@ -735,9 +736,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipManager: {fileID: 0}
+  linkedKeyword: {fileID: 0}
   tooltipText: 
   tooltipType: 1
   tooltipWindow: {fileID: 5895633090016677584}
+  tooltipTriggerTime: 0
 --- !u!114 &6821728646836164366
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: BoldUnderline
   m_EditorClassIdentifier: Assembly-CSharp::TooltipWindowStyle
   styleName: BoldUnderline
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.8}
   textColor: {r: 1, g: 1, b: 1, a: 1}
   keywordColor: {r: 1, g: 1, b: 1, a: 1}
   bold: 1
   italic: 0
   underline: 1
-  openingText: <color=#000000><b><u>
-  closingText: </color></b></u>
+  openingText: <b><u>
+  closingText: </b></u>

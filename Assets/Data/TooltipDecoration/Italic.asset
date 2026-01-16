@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Italic
   m_EditorClassIdentifier: Assembly-CSharp::TooltipWindowStyle
   styleName: Bold
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.8}
   textColor: {r: 1, g: 1, b: 1, a: 1}
   keywordColor: {r: 1, g: 1, b: 1, a: 1}
   bold: 0
   italic: 1
   underline: 0
-  openingText: <color=#000000><i>
-  closingText: </color></i>
+  openingText: <i>
+  closingText: </i>

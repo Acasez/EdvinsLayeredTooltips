@@ -9,7 +9,7 @@ public class TooltipWindowStyle : ScriptableObject
     public string styleName;
 
     [Tooltip("Bakground Decoration")]
-    public Color backgroundDecoration;
+    public Color backgroundColor;
 
     [Tooltip("Text Style")]
     public Color textColor;
