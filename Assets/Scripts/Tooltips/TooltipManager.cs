@@ -192,17 +192,17 @@ public class TooltipManager : MonoBehaviour
         // Calculate the desired position (adjust for tooltip pivot and offset)
         float tipDownDistance = (tooltipHeight * tooltipSizeDownwardFactor) + tipNudge;
         if (mobile) tipDownDistance *= -1f;
-        Vector2 desiredPosition = new Vector2(localPosition.x, localPosition.y - tipDownDistance);
+        Vector2 desiredPosition = new(localPosition.x, localPosition.y - tipDownDistance);
 
         // Get canvas bounds (already in local space)
         Vector2 canvasMin = canvasRectTransform.rect.min;
         Vector2 canvasMax = canvasRectTransform.rect.max;
 
         // Calculate min/max allowed positions (accounting for tooltip size and pivot)
-        float minX = canvasMin.x + tooltipWidth * tooltipRect.pivot.x;
-        float maxX = canvasMax.x - tooltipWidth * (1 - tooltipRect.pivot.x);
-        float minY = canvasMin.y + tooltipHeight * tooltipRect.pivot.y;
-        float maxY = canvasMax.y - tooltipHeight * (1 - tooltipRect.pivot.y);
+        float minX = canvasMin.x + edgeOfScreenMargin + tooltipWidth * tooltipRect.pivot.x;
+        float maxX = canvasMax.x - edgeOfScreenMargin - tooltipWidth * (1 - tooltipRect.pivot.x);
+        float minY = canvasMin.y + edgeOfScreenMargin + tooltipHeight * tooltipRect.pivot.y;
+        float maxY = canvasMax.y - edgeOfScreenMargin - tooltipHeight * (1 - tooltipRect.pivot.y);
 
         // Clamp
         float clampedX = Mathf.Clamp(desiredPosition.x, minX, maxX);

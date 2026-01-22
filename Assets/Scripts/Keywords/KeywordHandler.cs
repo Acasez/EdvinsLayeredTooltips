@@ -119,26 +119,28 @@ public class KeywordHandler : MonoBehaviour
                     continue;
                 }
 
-                string pattern = $@"\b({Regex.Escape(currentWording.wording)})\b";
+                string pattern = $@"(?:-\d+\s+)?\b({Regex.Escape(currentWording.wording)})\b";
                 var match = Regex.Match(currentSegment, pattern, RegexOptions.IgnoreCase);
 
                 if (match.Success)
                 {
-                    //Debug.Log("Found Match! " + currentWording.wording + " for keyword " + currentWording.keyword.keywordName);
                     string matchedText = match.Groups[1].Value;
                     string linkId = currentWording.keyword.keywordName;
-
-                    //Debug.Log("Added keyword " + currentWording.keyword.keywordName + " to activeKeywords list");
                     activeKeywords.Add(currentWording.keyword);
 
-                    //Set icon to correct sprite sheet name, if one exists
+                    // Check if the matched text is preceded by a negative number
+                    bool isNegative = match.Index > 0 && currentSegment[match.Index - 1] == '-' && char.IsDigit(currentSegment[match.Index - 2]);
+
                     string icon = "";
-                    if (!string.IsNullOrWhiteSpace(currentWording.keyword.icon))
+                    if (isNegative && !string.IsNullOrWhiteSpace(currentWording.keyword.negativeIcon))
+                    {
+                        icon = "<sprite name=\"" + currentWording.keyword.negativeIcon + "\">";
+                    }
+                    else if (!string.IsNullOrWhiteSpace(currentWording.keyword.icon))
                     {
                         icon = "<sprite name=\"" + currentWording.keyword.icon + "\">";
                     }
 
-                    // Conditionally wrap the matched text in <link> tags
                     if (createTooltips)
                     {
                         currentSegment = currentSegment[..match.Index] + "<link=\"" + linkId + "\">" + tooltipWindowStyle.openingText + matchedText + tooltipWindowStyle.closingText + "</link>" + icon + currentSegment[(match.Index + match.Length)..];
@@ -220,6 +222,4 @@ public class KeywordHandler : MonoBehaviour
 
         return segments;
     }
-
-
 }

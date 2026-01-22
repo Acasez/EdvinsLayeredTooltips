@@ -13,6 +13,9 @@ public class KeywordScriptableObject : ScriptableObject
     public List<string> wordings;
     [Tooltip("The icon for keyword. Needs to be exact same as the name in the sprite sheet to work. If left empty won't create an icon")]
     public string icon;
-	[Tooltip("The tooltip that appears when you hover over this")]
+    [Tooltip("Negative Icons are optional. They will appear instead of the normal icon if there is a negative number in front of the keyword")]
+    public string negativeIcon;
+    [Tooltip("The tooltip that appears when you hover over this")]
     [TextArea] public string tooltipText;
 }
+
