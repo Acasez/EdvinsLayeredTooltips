@@ -14,8 +14,10 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI textMeshPro;
     [SerializeField] TooltipTrigger trigger;
 
-    [Header("References")]
-    [SerializeField] TooltipManager tooltipManager;
+    TooltipManager tooltipManager;
+
+    [Tooltip("Only if you want this the text here to a specific TooltipStyle")]
+    [SerializeField] TooltipWindowStyle specificTooltipStyle;
 
     private void Start()
     {
@@ -67,24 +69,24 @@ public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitH
     }
 
     private KeywordScriptableObject GetKeyword(string linkedWord)
-	{
+    {
         List<KeywordScriptableObject> keywords = tooltipManager.GetKeywords();
 
         for (int i = 0; i < keywords.Count; i++)
-		{
-			if (keywords[i].tooltipText != null)
-			{
-				if (keywords[i].keywordName == linkedWord)
-				{
-					return keywords[i];
-				}
-			}
-			else
-			{
-				Debug.Log($"Keyword: " + keywords[i] + " has no tooltipText");
-			}
-		}
-		Debug.Log($"Didn't find a match for : " + linkedWord);
-		return null;
-	}
+        {
+            if (keywords[i].tooltipText != null)
+            {
+                if (keywords[i].keywordName == linkedWord)
+                {
+                    return keywords[i];
+                }
+            }
+            else
+            {
+                Debug.Log($"Keyword: " + keywords[i] + " has no tooltipText");
+            }
+        }
+        Debug.Log($"Didn't find a match for : " + linkedWord);
+        return null;
+    }
 }

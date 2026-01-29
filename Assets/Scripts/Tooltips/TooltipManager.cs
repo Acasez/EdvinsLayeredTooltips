@@ -6,27 +6,27 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-public class TooltipManager : MonoBehaviour 
+public class TooltipManager : MonoBehaviour
 {
     [Header("Settings")]
     [Tooltip("How many tooltips there should be. I would suggest like 5, but any amount is fine.")]
     [SerializeField][Range(1, 25)] int tooltipAmount = 5;
     [SerializeField] List<Tooltip> tooltips;
-	[SerializeField] bool mobile;
+    [SerializeField] bool mobile;
     [SerializeField] TooltipWindow tooltipWindowPrefab;
 
     [Header("Canvas")]
     [SerializeField] Canvas canvas;
-	[SerializeField] RectTransform canvasRectTransform;
+    [SerializeField] RectTransform canvasRectTransform;
 
     [Header("Keywords")]
-	[SerializeField] KeywordHandler keywordHandler;
+    [SerializeField] KeywordHandler keywordHandler;
 
     [Header("Tooltip Text Settings")]
-	/* Might wanna keep these for later adjustments
+    /* Might wanna keep these for later adjustments
 	[SerializeField] int lineWidth = 200; // Maximum width of the tooltip text
 	[SerializeField] int borderSize = 8; // Size of the border around the tooltip*/
-	[Tooltip("Margin from the edge of the screen")]
+    [Tooltip("Margin from the edge of the screen")]
     [SerializeField] int edgeOfScreenMargin = 15;
     [Tooltip("How far down the tooltip is from mouse position")]
     [SerializeField] float tipNudge = 100f;
@@ -37,26 +37,26 @@ public class TooltipManager : MonoBehaviour
     [SerializeField] TooltipWindowStyle tooltipWindowStyle;
 
     [Serializable]
-	public class Tooltip
-	{
-		public TooltipWindow tooltipWindow;
-		public TooltipTrigger trigger;
-		public bool active;
-		public bool locked;
-	}
+    public class Tooltip
+    {
+        public TooltipWindow tooltipWindow;
+        public TooltipTrigger trigger;
+        public bool active;
+        public bool locked;
+    }
 
     private void Start()
     {
         canvas = GetComponentInChildren<Canvas>();
-		canvasRectTransform = canvas.GetComponent<RectTransform>();
-		if (Application.isMobilePlatform)
-		{
-			mobile = true;
-		}
-		else
-		{
-			mobile = false;
-		}
+        canvasRectTransform = canvas.GetComponent<RectTransform>();
+        if (Application.isMobilePlatform)
+        {
+            mobile = true;
+        }
+        else
+        {
+            mobile = false;
+        }
         for (int i = 0; i < tooltipAmount; i++)
         {
             Tooltip currentTooltip = new();
@@ -71,7 +71,7 @@ public class TooltipManager : MonoBehaviour
 
     private void Update()
     {
-		//This setup looks a bit ugly but works weather your using the the old or new input system.
+        //This setup looks a bit ugly but works weather your using the the old or new input system.
         bool isRightClick =
 #if ENABLE_LEGACY_INPUT_MANAGER
             Input.GetMouseButtonDown(2);
@@ -99,64 +99,65 @@ public class TooltipManager : MonoBehaviour
     }
 
     public void LockUnlockTooltip(Tooltip tooltip)
-	{
-		if (tooltip.locked)
-		{
-			tooltip.locked = false;
-			tooltip.tooltipWindow.DisplayLockTooltip(false);
-			if (!tooltip.trigger.IsPointerOverTooltip()) { //Remove tooltip if the mouse isn't there currently
+    {
+        if (tooltip.locked)
+        {
+            tooltip.locked = false;
+            tooltip.tooltipWindow.DisplayLockTooltip(false);
+            if (!tooltip.trigger.IsPointerOverTooltip())
+            { //Remove tooltip if the mouse isn't there currently
                 RemoveTooltip(tooltip, true);
             }
-		}
-		else
-		{
-			tooltip.locked = true;
-			tooltip.tooltipWindow.DisplayLockTooltip(true);
-		}
-	}
+        }
+        else
+        {
+            tooltip.locked = true;
+            tooltip.tooltipWindow.DisplayLockTooltip(true);
+        }
+    }
 
-	public Tooltip GetTopTooltip()
-	{
-		for (int i = tooltips.Count - 1; i > -1; i--)
-		{
-			if (tooltips[i] != null)
-			{
-				if (tooltips[i].active == true)
-				{
-					return tooltips[i];
-				}
-			}
-		}
+    public Tooltip GetTopTooltip()
+    {
+        for (int i = tooltips.Count - 1; i > -1; i--)
+        {
+            if (tooltips[i] != null)
+            {
+                if (tooltips[i].active == true)
+                {
+                    return tooltips[i];
+                }
+            }
+        }
 
-		Debug.Log("No available tooltips");
-		return null;
-	}
+        Debug.Log("No available tooltips");
+        return null;
+    }
 
-	public Tooltip GetFirstAvaibleTooltip()
-	{
-		for (int i = 0; i < tooltips.Count; i++)
-		{
-			if (tooltips[i] != null)
-			{
-				if (tooltips[i].active == false)
-				{
-					return tooltips[i];
-				}
-			}
-		}
+    public Tooltip GetFirstAvaibleTooltip()
+    {
+        for (int i = 0; i < tooltips.Count; i++)
+        {
+            if (tooltips[i] != null)
+            {
+                if (tooltips[i].active == false)
+                {
+                    return tooltips[i];
+                }
+            }
+        }
 
-		Debug.Log("No available tooltips");
-		return null;
-	}
+        Debug.Log("No available tooltips");
+        return null;
+    }
 
 
     public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition, KeywordScriptableObject keyword)
     {
-		if (GetCallersTooltip(caller) != null)
-		{
-			Debug.Log("Caller already has tooltip");
-			return;
-		}
+        if (GetCallersTooltip(caller) != null)
+        {
+            Debug.Log("Caller already has tooltip");
+            return;
+        }
 
         Tooltip thisTooltip = GetFirstAvaibleTooltip();
         if (thisTooltip == null) { return; }
@@ -165,7 +166,7 @@ public class TooltipManager : MonoBehaviour
         thisTooltip.trigger = caller;
 
         thisTooltip.tooltipWindow.gameObject.SetActive(true);
-		thisTooltip.tooltipWindow.SetReferences(this, thisTooltip);
+        thisTooltip.tooltipWindow.SetReferences(this, thisTooltip);
         thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler, keyword);
 
         RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
@@ -212,55 +213,56 @@ public class TooltipManager : MonoBehaviour
     }
 
     public void RemoveCallersTooltip(TooltipTrigger caller)
-	{
-		Tooltip thisTooltip = GetCallersTooltip(caller);
+    {
+        Tooltip thisTooltip = GetCallersTooltip(caller);
 
-		RemoveTooltip(thisTooltip, false);
-	}
+        RemoveTooltip(thisTooltip, false);
+    }
 
-	public void RemoveTooltip(Tooltip thisTooltip, bool trueRemove)
-	{
-        if (thisTooltip == null || thisTooltip.tooltipWindow == null) { return; };
+    public void RemoveTooltip(Tooltip thisTooltip, bool trueRemove)
+    {
+        if (thisTooltip == null || thisTooltip.tooltipWindow == null) { return; }
+        ;
         if (thisTooltip.locked && trueRemove == false)
         {
             return;
         }
-		RemoveTooltipsAboveThis(thisTooltip);
+        RemoveTooltipsAboveThis(thisTooltip);
 
         thisTooltip.active = false;
         thisTooltip.trigger = null;
         thisTooltip.tooltipWindow.gameObject.SetActive(false);
     }
 
-	public void RemoveTooltipsAboveThis(Tooltip thisTooltip)
+    public void RemoveTooltipsAboveThis(Tooltip thisTooltip)
     {
         for (int i = tooltips.Count - 1; i > -1; i--)
         {
-			if (tooltips[i] == thisTooltip)
-			{
-				return;
-			}
+            if (tooltips[i] == thisTooltip)
+            {
+                return;
+            }
             if (tooltips[i].active)
-			{
-				Debug.Log("Removing tooltip " + i);
-				RemoveTooltip(tooltips[i], true);
+            {
+                Debug.Log("Removing tooltip " + i);
+                RemoveTooltip(tooltips[i], true);
             }
         }
     }
 
-	public Tooltip GetCallersTooltip(TooltipTrigger caller)
-	{
-		for (int i = 0; i < tooltips.Count; i++)
-		{
-			if (tooltips[i] != null)
-			{
-				if (tooltips[i].trigger == caller) 
-				{ 
-					return tooltips[i]; 
-				}
-			}
-		}
+    public Tooltip GetCallersTooltip(TooltipTrigger caller)
+    {
+        for (int i = 0; i < tooltips.Count; i++)
+        {
+            if (tooltips[i] != null)
+            {
+                if (tooltips[i].trigger == caller)
+                {
+                    return tooltips[i];
+                }
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 }
