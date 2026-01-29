@@ -84,7 +84,7 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: DraKort
+    m_Name: Card
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
@@ -94,127 +94,127 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 2
     m_Scale: 1
-    m_Name: "Utsl\xE4pp"
+    m_Name: Pollution
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 3
     m_Scale: 1
-    m_Name: "Naturm\xE4tare"
+    m_Name: Nature Track
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 4
     m_Scale: 1
-    m_Name: Inkomst
+    m_Name: Income
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 5
     m_Scale: 1
-    m_Name: "Gr\xF6n energi"
+    m_Name: Green Energy
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 6
     m_Scale: 1
-    m_Name: Pengar
+    m_Name: Money
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 7
     m_Scale: 1
-    m_Name: Kollektivtrafik
+    m_Name: Public Transport
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 8
     m_Scale: 1
-    m_Name: "G\xE5ngv\xE4g"
+    m_Name: Paths
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 9
     m_Scale: 1
-    m_Name: Trafik
+    m_Name: Traffic
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 10
     m_Scale: 1
-    m_Name: Konstruktion
+    m_Name: Construction
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 11
     m_Scale: 1
-    m_Name: Spelare
+    m_Name: Player
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 12
     m_Scale: 1
-    m_Name: "Positiv Allm\xE4n"
+    m_Name: Positive Public
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 13
     m_Scale: 1
-    m_Name: Positiv Stad
+    m_Name: Positive City
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 14
     m_Scale: 1
-    m_Name: Positiv Land
+    m_Name: Positive Rural
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 15
     m_Scale: 1
-    m_Name: "Negativ Allm\xE4n"
+    m_Name: Negative Public
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 16
     m_Scale: 1
-    m_Name: Negativ Stad
+    m_Name: Negative City
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 17
     m_Scale: 1
-    m_Name: Negativ Land
+    m_Name: Negative Rural
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 18
     m_Scale: 1
-    m_Name: GlobalTag
+    m_Name: Global Tag
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 19
     m_Scale: 1
-    m_Name: VetenskapTag
+    m_Name: Science Tag
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 20
     m_Scale: 1
-    m_Name: LokalTag
+    m_Name: Local Tag
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 21
     m_Scale: 1
-    m_Name: KollektivtrafikTag
+    m_Name: Public Transport Tag
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 22
     m_Scale: 1
-    m_Name: "Gr\xF6n Energi Tag"
+    m_Name: Green Energy Tag
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 23
     m_Scale: 1
-    m_Name: NaturTag
+    m_Name: Nature Tag
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 24
     m_Scale: 1
-    m_Name: "Ny\xC5r"
+    m_Name: New Year
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 50
     m_Scale: 1
-    m_Name: SlutAvSpelet
+    m_Name: Endgame
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 51
     m_Scale: 1
-    m_Name: Aktiverad
+    m_Name: Activated
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:

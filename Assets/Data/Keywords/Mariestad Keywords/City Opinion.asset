@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ad69a0148590349a0913e9d96ddf60, type: 3}
+  m_Name: City Opinion
+  m_EditorClassIdentifier: 
+  keywordName: City Opinion
+  keywordType: 0
+  wordings:
+  - City Opinion
+  - "Stads\xE5sikt"
+  icon: Positive City
+  negativeIcon: Negative City
+  tooltipText: City opinion is one of the two opinion tracks alongside rural opinion
+  textWithTooltips: 
+  specificTooltipStyle: {fileID: 11400000, guid: 79b7a8633b0bf8548a4274338c4d0dd5, type: 2}

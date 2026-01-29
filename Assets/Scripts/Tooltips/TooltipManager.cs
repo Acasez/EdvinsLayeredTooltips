@@ -59,9 +59,10 @@ public class TooltipManager : MonoBehaviour
         }
         for (int i = 0; i < tooltipAmount; i++)
         {
-            Tooltip currentTooltip = new();
-
-            currentTooltip.tooltipWindow = Instantiate(tooltipWindowPrefab, canvas.transform);
+            Tooltip currentTooltip = new()
+            {
+                tooltipWindow = Instantiate(tooltipWindowPrefab, canvas.transform)
+            };
             currentTooltip.tooltipWindow.SetReferences(this, currentTooltip);
             currentTooltip.trigger = currentTooltip.tooltipWindow.GetComponentInChildren<TooltipTrigger>();
             tooltips.Add(currentTooltip);

@@ -166,10 +166,10 @@ MonoBehaviour:
   canvas: {fileID: 7297184317425446455}
   canvasRectTransform: {fileID: 1991531275081471986}
   keywordHandler: {fileID: 7148879821461226262}
-  showTooltipTitle: 0
   edgeOfScreenMargin: 15
   tipNudge: 30
   tooltipSizeDownwardFactor: 0.4
+  tooltipWindowStyle: {fileID: 0}
 --- !u!1001 &1995254251847860522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,22 +222,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeywordHandler
       objectReference: {fileID: 0}
-    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
-      propertyPath: keywords.Array.size
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
-      propertyPath: 'keywords.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: c4c276a6a1a394846a6916fbc1905a66, type: 2}
-    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
-      propertyPath: 'keywords.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 5280dea9f69e13e4d844556431f42360, type: 2}
-    - target: {fileID: 8684485417411363388, guid: 58375452d21fde449845c8ee18baad7a, type: 3}
-      propertyPath: 'keywords.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 1d9e3cef0d161e9479d149ae5cd1ee6b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

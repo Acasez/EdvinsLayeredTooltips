@@ -525,24 +525,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipTextUI: {fileID: 3675031685061177864}
   tooltipBackground: {fileID: 8540125544996547325}
-  tooltipManager: {fileID: 0}
-  tooltip:
-    tooltipWindow: {fileID: 0}
-    trigger: {fileID: 8902611860584311450}
-    active: 0
-    locked: 0
   tooltipWindowExtraHeight: 5
   tooltipWindowWidth: 500
-  showTitle: 1
-  titleTextSize: 125
-  typeTextSize: 110
   lockedBorders:
   - {fileID: 8124454957132806764}
   - {fileID: 4048470489455022849}
   - {fileID: 9140834479332012293}
   - {fileID: 6483324452896107960}
-  defaultBorderColor: {r: 1, g: 1, b: 1, a: 0.2}
-  lockedBorderColor: {r: 0.9764706, g: 0.54509807, b: 0, a: 1}
   locked: 0
 --- !u!1 &6173708367102527726
 GameObject:
@@ -670,7 +659,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 16598127c1e0d5f4daace3c53653c757, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: b87a8508d739dd24fa0972b949bbccf7, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -755,4 +744,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 3675031685061177864}
   trigger: {fileID: 8902611860584311450}
-  tooltipManager: {fileID: 0}
+  specificTooltipStyle: {fileID: 0}
