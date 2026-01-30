@@ -10,24 +10,45 @@ namespace LayeredTooltips
 {
     public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitHandler
     {
-        [Header("Values")]
+        
         private int lastLinkIndex = -1;
-
-        [Header("Local References")]
-        [SerializeField] TextMeshProUGUI textMeshPro;
-        [SerializeField] TooltipTrigger trigger;
+        
+        TextMeshProUGUI textMeshPro;
+        TooltipTrigger trigger;
 
         TooltipManager tooltipManager;
 
+        [Header("Settings")]
         [Tooltip("Only if you want this the text here to a specific TooltipStyle")]
         [SerializeField] TooltipWindowStyle specificTooltipStyle;
+        [Tooltip("Preset text field")]
+        [SerializeField] bool presetTextField;
 
-        private void Start()
+        private void Awake()
         {
             tooltipManager = FindAnyObjectByType<TooltipManager>();
             if (tooltipManager == null)
             {
                 Debug.LogWarning("No tooltipManager!");
+            }
+
+            textMeshPro = GetComponent<TextMeshProUGUI>();
+            if (textMeshPro == null)
+            {
+                Debug.LogWarning("No textMeshPro!");
+            }
+            trigger = GetComponent<TooltipTrigger>();
+            if (textMeshPro == null)
+            {
+                Debug.LogWarning("No TooltipTrigger!");
+            }
+            
+        }
+        private void Start()
+        {
+            if (presetTextField)
+            {
+                textMeshPro.text = tooltipManager.GetKeywordHandler().AddKeywordsToText(textMeshPro.text, true, null);
             }
         }
 

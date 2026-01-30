@@ -37,7 +37,7 @@ namespace LayeredTooltips
             public KeywordScriptableObject keyword;
         }
 
-        private void Start()
+        private void Awake()
         {
             MakeWordingList();
             tooltipManager = FindAnyObjectByType<TooltipManager>();

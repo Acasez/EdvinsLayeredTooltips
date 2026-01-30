@@ -46,7 +46,7 @@ namespace LayeredTooltips
             public bool locked;
         }
 
-        private void Start()
+        private void Awake()
         {
             canvas = GetComponentInChildren<Canvas>();
             canvasRectTransform = canvas.GetComponent<RectTransform>();
@@ -93,6 +93,11 @@ namespace LayeredTooltips
         public List<KeywordScriptableObject> GetKeywords()
         {
             return keywordHandler.keywords;
+        }
+
+        public KeywordHandler GetKeywordHandler()
+        {
+            return keywordHandler;
         }
 
         public TooltipWindowStyle GetTooltipDecoration()

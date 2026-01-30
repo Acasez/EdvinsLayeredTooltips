@@ -29,7 +29,7 @@ namespace LayeredTooltips
         [Tooltip("How long until tooltip appears")]
         [SerializeField] float tooltipTriggerTime = 0.5f;
 
-        private void Start()
+        private void Awake()
         {
             tooltipManager = FindAnyObjectByType<TooltipManager>();
             if (tooltipManager == null)
