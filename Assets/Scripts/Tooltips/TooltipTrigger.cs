@@ -21,8 +21,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Header("Variables")]
     [SerializeField] string tooltipText;
 	[SerializeField] TooltipType tooltipType;
-    [SerializeField] TooltipWindow tooltipWindow;
-	[SerializeField] float tooltipTriggerTime;
+	[SerializeField] float tooltipTriggerTime = 0.5f;
 
     private void Start()
 	{
