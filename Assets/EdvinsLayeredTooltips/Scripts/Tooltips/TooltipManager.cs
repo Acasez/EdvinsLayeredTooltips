@@ -6,264 +6,268 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-public class TooltipManager : MonoBehaviour
+namespace LayeredTooltips
 {
-    [Header("Settings")]
-    [Tooltip("How many tooltips there should be. I would suggest like 5, but any amount is fine.")]
-    [SerializeField][Range(1, 25)] int tooltipAmount = 5;
-    [SerializeField] List<Tooltip> tooltips;
-    [SerializeField] bool mobile;
-    [SerializeField] TooltipWindow tooltipWindowPrefab;
-
-    [Header("Canvas")]
-    [SerializeField] Canvas canvas;
-    [SerializeField] RectTransform canvasRectTransform;
-
-    [Header("Keywords")]
-    [SerializeField] KeywordHandler keywordHandler;
-
-    [Header("Tooltip Text Settings")]
-    /* Might wanna keep these for later adjustments
-	[SerializeField] int lineWidth = 200; // Maximum width of the tooltip text
-	[SerializeField] int borderSize = 8; // Size of the border around the tooltip*/
-    [Tooltip("Margin from the edge of the screen")]
-    [SerializeField] int edgeOfScreenMargin = 15;
-    [Tooltip("How far down the tooltip is from mouse position")]
-    [SerializeField] float tipNudge = 100f;
-    [Tooltip("How far down the tooltip is from mouse position, based on the tooltips height")]
-    [SerializeField] float tooltipSizeDownwardFactor = 0.5f;
-
-    [Header("Decoration")]
-    [SerializeField] TooltipWindowStyle tooltipWindowStyle;
-
-    [Serializable]
-    public class Tooltip
+    public class TooltipManager : MonoBehaviour
     {
-        public TooltipWindow tooltipWindow;
-        public TooltipTrigger trigger;
-        public bool active;
-        public bool locked;
-    }
+        [Header("Settings")]
+        [Tooltip("How many tooltips there should be. I would suggest like 5, but any amount is fine.")]
+        [SerializeField][Range(1, 25)] int tooltipAmount = 5;
+        [SerializeField] List<Tooltip> tooltips;
+        [SerializeField] bool mobile;
+        [SerializeField] TooltipWindow tooltipWindowPrefab;
 
-    private void Start()
-    {
-        canvas = GetComponentInChildren<Canvas>();
-        canvasRectTransform = canvas.GetComponent<RectTransform>();
-        if (Application.isMobilePlatform)
+        [Header("Canvas")]
+        [SerializeField] Canvas canvas;
+        [SerializeField] RectTransform canvasRectTransform;
+
+        [Header("Keywords")]
+        [SerializeField] KeywordHandler keywordHandler;
+
+        [Header("Tooltip Text Settings")]
+        /* Might wanna keep these for later adjustments
+        [SerializeField] int lineWidth = 200; // Maximum width of the tooltip text
+        [SerializeField] int borderSize = 8; // Size of the border around the tooltip*/
+        [Tooltip("Margin from the edge of the screen")]
+        [SerializeField] int edgeOfScreenMargin = 15;
+        [Tooltip("How far down the tooltip is from mouse position")]
+        [SerializeField] float tipNudge = 100f;
+        [Tooltip("How far down the tooltip is from mouse position, based on the tooltips height")]
+        [SerializeField] float tooltipSizeDownwardFactor = 0.5f;
+
+        [Header("Decoration")]
+        [SerializeField] TooltipWindowStyle tooltipWindowStyle;
+
+        [Serializable]
+        public class Tooltip
         {
-            mobile = true;
+            public TooltipWindow tooltipWindow;
+            public TooltipTrigger trigger;
+            public bool active;
+            public bool locked;
         }
-        else
+
+        private void Start()
         {
-            mobile = false;
-        }
-        for (int i = 0; i < tooltipAmount; i++)
-        {
-            Tooltip currentTooltip = new()
+            canvas = GetComponentInChildren<Canvas>();
+            canvasRectTransform = canvas.GetComponent<RectTransform>();
+            if (Application.isMobilePlatform)
             {
-                tooltipWindow = Instantiate(tooltipWindowPrefab, canvas.transform)
-            };
-            currentTooltip.tooltipWindow.SetReferences(this, currentTooltip);
-            currentTooltip.trigger = currentTooltip.tooltipWindow.GetComponentInChildren<TooltipTrigger>();
-            tooltips.Add(currentTooltip);
-            RemoveTooltip(currentTooltip, true);
+                mobile = true;
+            }
+            else
+            {
+                mobile = false;
+            }
+            for (int i = 0; i < tooltipAmount; i++)
+            {
+                Tooltip currentTooltip = new()
+                {
+                    tooltipWindow = Instantiate(tooltipWindowPrefab, canvas.transform)
+                };
+                currentTooltip.tooltipWindow.SetReferences(this, currentTooltip);
+                currentTooltip.trigger = currentTooltip.tooltipWindow.GetComponentInChildren<TooltipTrigger>();
+                tooltips.Add(currentTooltip);
+                RemoveTooltip(currentTooltip, true);
+            }
         }
-    }
 
-    private void Update()
-    {
-        //This setup looks a bit ugly but works weather your using the the old or new input system.
-        bool isRightClick =
+        private void Update()
+        {
+            //This setup looks a bit ugly but works weather your using the the old or new input system.
+            bool isRightClick =
 #if ENABLE_LEGACY_INPUT_MANAGER
-            Input.GetMouseButtonDown(2);
+                Input.GetMouseButtonDown(2);
 #else
             Mouse.current != null && Mouse.current.middleButton.wasPressedThisFrame;
 #endif
 
-        if (isRightClick)
-        {
-            Tooltip topTooltip = GetTopTooltip();
-            if (topTooltip != null)
+            if (isRightClick)
             {
-                LockUnlockTooltip(topTooltip);
-            }
-        }
-    }
-    public List<KeywordScriptableObject> GetKeywords()
-    {
-        return keywordHandler.keywords;
-    }
-
-    public TooltipWindowStyle GetTooltipDecoration()
-    {
-        return tooltipWindowStyle;
-    }
-
-    public void LockUnlockTooltip(Tooltip tooltip)
-    {
-        if (tooltip.locked)
-        {
-            tooltip.locked = false;
-            tooltip.tooltipWindow.DisplayLockTooltip(false);
-            if (!tooltip.trigger.IsPointerOverTooltip())
-            { //Remove tooltip if the mouse isn't there currently
-                RemoveTooltip(tooltip, true);
-            }
-        }
-        else
-        {
-            tooltip.locked = true;
-            tooltip.tooltipWindow.DisplayLockTooltip(true);
-        }
-    }
-
-    public Tooltip GetTopTooltip()
-    {
-        for (int i = tooltips.Count - 1; i > -1; i--)
-        {
-            if (tooltips[i] != null)
-            {
-                if (tooltips[i].active == true)
+                Tooltip topTooltip = GetTopTooltip();
+                if (topTooltip != null)
                 {
-                    return tooltips[i];
+                    LockUnlockTooltip(topTooltip);
                 }
             }
         }
-
-        Debug.Log("No available tooltips");
-        return null;
-    }
-
-    public Tooltip GetFirstAvaibleTooltip()
-    {
-        for (int i = 0; i < tooltips.Count; i++)
+        public List<KeywordScriptableObject> GetKeywords()
         {
-            if (tooltips[i] != null)
+            return keywordHandler.keywords;
+        }
+
+        public TooltipWindowStyle GetTooltipDecoration()
+        {
+            return tooltipWindowStyle;
+        }
+
+        public void LockUnlockTooltip(Tooltip tooltip)
+        {
+            if (tooltip.locked)
             {
-                if (tooltips[i].active == false)
-                {
-                    return tooltips[i];
+                tooltip.locked = false;
+                tooltip.tooltipWindow.DisplayLockTooltip(false);
+                if (!tooltip.trigger.IsPointerOverTooltip())
+                { //Remove tooltip if the mouse isn't there currently
+                    RemoveTooltip(tooltip, true);
                 }
+            }
+            else
+            {
+                tooltip.locked = true;
+                tooltip.tooltipWindow.DisplayLockTooltip(true);
             }
         }
 
-        Debug.Log("No available tooltips");
-        return null;
-    }
-
-
-    public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition, KeywordScriptableObject keyword)
-    {
-        if (GetCallersTooltip(caller) != null)
+        public Tooltip GetTopTooltip()
         {
-            Debug.Log("Caller already has tooltip");
-            return;
+            for (int i = tooltips.Count - 1; i > -1; i--)
+            {
+                if (tooltips[i] != null)
+                {
+                    if (tooltips[i].active == true)
+                    {
+                        return tooltips[i];
+                    }
+                }
+            }
+
+            Debug.Log("No available tooltips");
+            return null;
         }
 
-        Tooltip thisTooltip = GetFirstAvaibleTooltip();
-        if (thisTooltip == null) { return; }
-
-        thisTooltip.active = true;
-        thisTooltip.trigger = caller;
-
-        thisTooltip.tooltipWindow.gameObject.SetActive(true);
-        thisTooltip.tooltipWindow.SetReferences(this, thisTooltip);
-        thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler, keyword);
-
-        RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
-        Vector2 clampedPos = GetPositionInsideCanvas(tooltipRect, screenPosition);
-        Debug.Log("Clamped Pos: " + clampedPos);
-        thisTooltip.tooltipWindow.transform.localPosition = clampedPos;
-    }
-
-    private Vector2 GetPositionInsideCanvas(RectTransform tooltipRect, Vector2 screenPosition)
-    {
-        // Convert screen position to local position in canvas
-        Vector2 localPosition;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRectTransform,
-            screenPosition,
-            null, // Use null for overlay canvas, or specify your camera if using Screen Space - Camera
-            out localPosition
-        );
-
-        // Calculate tooltip size
-        float tooltipWidth = tooltipRect.rect.width;
-        float tooltipHeight = tooltipRect.rect.height;
-
-        // Calculate the desired position (adjust for tooltip pivot and offset)
-        float tipDownDistance = (tooltipHeight * tooltipSizeDownwardFactor) + tipNudge;
-        if (mobile) tipDownDistance *= -1f;
-        Vector2 desiredPosition = new(localPosition.x, localPosition.y - tipDownDistance);
-
-        // Get canvas bounds (already in local space)
-        Vector2 canvasMin = canvasRectTransform.rect.min;
-        Vector2 canvasMax = canvasRectTransform.rect.max;
-
-        // Calculate min/max allowed positions (accounting for tooltip size and pivot)
-        float minX = canvasMin.x + edgeOfScreenMargin + tooltipWidth * tooltipRect.pivot.x;
-        float maxX = canvasMax.x - edgeOfScreenMargin - tooltipWidth * (1 - tooltipRect.pivot.x);
-        float minY = canvasMin.y + edgeOfScreenMargin + tooltipHeight * tooltipRect.pivot.y;
-        float maxY = canvasMax.y - edgeOfScreenMargin - tooltipHeight * (1 - tooltipRect.pivot.y);
-
-        // Clamp
-        float clampedX = Mathf.Clamp(desiredPosition.x, minX, maxX);
-        float clampedY = Mathf.Clamp(desiredPosition.y, minY, maxY);
-
-        return new Vector2(clampedX, clampedY);
-    }
-
-    public void RemoveCallersTooltip(TooltipTrigger caller)
-    {
-        Tooltip thisTooltip = GetCallersTooltip(caller);
-
-        RemoveTooltip(thisTooltip, false);
-    }
-
-    public void RemoveTooltip(Tooltip thisTooltip, bool trueRemove)
-    {
-        if (thisTooltip == null || thisTooltip.tooltipWindow == null) { return; }
-        ;
-        if (thisTooltip.locked && trueRemove == false)
+        public Tooltip GetFirstAvaibleTooltip()
         {
-            return;
+            for (int i = 0; i < tooltips.Count; i++)
+            {
+                if (tooltips[i] != null)
+                {
+                    if (tooltips[i].active == false)
+                    {
+                        return tooltips[i];
+                    }
+                }
+            }
+
+            Debug.Log("No available tooltips");
+            return null;
         }
-        RemoveTooltipsAboveThis(thisTooltip);
 
-        thisTooltip.active = false;
-        thisTooltip.trigger = null;
-        thisTooltip.tooltipWindow.gameObject.SetActive(false);
-    }
 
-    public void RemoveTooltipsAboveThis(Tooltip thisTooltip)
-    {
-        for (int i = tooltips.Count - 1; i > -1; i--)
+        public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition, KeywordScriptableObject keyword)
         {
-            if (tooltips[i] == thisTooltip)
+            if (GetCallersTooltip(caller) != null)
+            {
+                Debug.Log("Caller already has tooltip");
+                return;
+            }
+
+            Tooltip thisTooltip = GetFirstAvaibleTooltip();
+            if (thisTooltip == null) { return; }
+
+            thisTooltip.active = true;
+            thisTooltip.trigger = caller;
+
+            thisTooltip.tooltipWindow.gameObject.SetActive(true);
+            thisTooltip.tooltipWindow.SetReferences(this, thisTooltip);
+            thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler, keyword);
+
+            RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
+            Vector2 clampedPos = GetPositionInsideCanvas(tooltipRect, screenPosition);
+            Debug.Log("Clamped Pos: " + clampedPos);
+            thisTooltip.tooltipWindow.transform.localPosition = clampedPos;
+        }
+
+        private Vector2 GetPositionInsideCanvas(RectTransform tooltipRect, Vector2 screenPosition)
+        {
+            // Convert screen position to local position in canvas
+            Vector2 localPosition;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRectTransform,
+                screenPosition,
+                null, // Use null for overlay canvas, or specify your camera if using Screen Space - Camera
+                out localPosition
+            );
+
+            // Calculate tooltip size
+            float tooltipWidth = tooltipRect.rect.width;
+            float tooltipHeight = tooltipRect.rect.height;
+
+            // Calculate the desired position (adjust for tooltip pivot and offset)
+            float tipDownDistance = (tooltipHeight * tooltipSizeDownwardFactor) + tipNudge;
+            if (mobile) tipDownDistance *= -1f;
+            Vector2 desiredPosition = new(localPosition.x, localPosition.y - tipDownDistance);
+
+            // Get canvas bounds (already in local space)
+            Vector2 canvasMin = canvasRectTransform.rect.min;
+            Vector2 canvasMax = canvasRectTransform.rect.max;
+
+            // Calculate min/max allowed positions (accounting for tooltip size and pivot)
+            float minX = canvasMin.x + edgeOfScreenMargin + tooltipWidth * tooltipRect.pivot.x;
+            float maxX = canvasMax.x - edgeOfScreenMargin - tooltipWidth * (1 - tooltipRect.pivot.x);
+            float minY = canvasMin.y + edgeOfScreenMargin + tooltipHeight * tooltipRect.pivot.y;
+            float maxY = canvasMax.y - edgeOfScreenMargin - tooltipHeight * (1 - tooltipRect.pivot.y);
+
+            // Clamp
+            float clampedX = Mathf.Clamp(desiredPosition.x, minX, maxX);
+            float clampedY = Mathf.Clamp(desiredPosition.y, minY, maxY);
+
+            return new Vector2(clampedX, clampedY);
+        }
+
+        public void RemoveCallersTooltip(TooltipTrigger caller)
+        {
+            Tooltip thisTooltip = GetCallersTooltip(caller);
+
+            RemoveTooltip(thisTooltip, false);
+        }
+
+        public void RemoveTooltip(Tooltip thisTooltip, bool trueRemove)
+        {
+            if (thisTooltip == null || thisTooltip.tooltipWindow == null) { return; };
+
+            if (thisTooltip.locked && trueRemove == false)
             {
                 return;
             }
-            if (tooltips[i].active)
-            {
-                Debug.Log("Removing tooltip " + i);
-                RemoveTooltip(tooltips[i], true);
-            }
-        }
-    }
+            RemoveTooltipsAboveThis(thisTooltip);
 
-    public Tooltip GetCallersTooltip(TooltipTrigger caller)
-    {
-        for (int i = 0; i < tooltips.Count; i++)
+            thisTooltip.active = false;
+            thisTooltip.trigger = null;
+            thisTooltip.tooltipWindow.gameObject.SetActive(false);
+        }
+
+        public void RemoveTooltipsAboveThis(Tooltip thisTooltip)
         {
-            if (tooltips[i] != null)
+            for (int i = tooltips.Count - 1; i > -1; i--)
             {
-                if (tooltips[i].trigger == caller)
+                if (tooltips[i] == thisTooltip)
                 {
-                    return tooltips[i];
+                    return;
+                }
+                if (tooltips[i].active)
+                {
+                    Debug.Log("Removing tooltip " + i);
+                    RemoveTooltip(tooltips[i], true);
                 }
             }
         }
 
-        return null;
+        public Tooltip GetCallersTooltip(TooltipTrigger caller)
+        {
+            for (int i = 0; i < tooltips.Count; i++)
+            {
+                if (tooltips[i] != null)
+                {
+                    if (tooltips[i].trigger == caller)
+                    {
+                        return tooltips[i];
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }
+
