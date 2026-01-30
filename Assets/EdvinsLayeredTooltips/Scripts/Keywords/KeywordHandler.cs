@@ -64,6 +64,11 @@ namespace LayeredTooltips
             _allWordingsCached = newWordings.OrderByDescending(w => w.wording?.Count(c => c == ' ') ?? 0).ToList();
         }
 
+        public string AddKeywordsToText(string text)
+        {
+            return AddKeywordsToText(text, true, null);
+        }
+
         public string AddKeywordsToText(string text, bool createTooltips, KeywordScriptableObject keyword)
         {
             if (AllWordings.Count == 0)

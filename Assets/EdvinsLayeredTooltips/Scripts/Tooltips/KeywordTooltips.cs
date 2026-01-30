@@ -48,8 +48,13 @@ namespace LayeredTooltips
         {
             if (presetTextField)
             {
-                textMeshPro.text = tooltipManager.GetKeywordHandler().AddKeywordsToText(textMeshPro.text, true, null);
+                AddKeywordsToText(textMeshPro.text);
             }
+        }
+
+        public void AddKeywordsToText(string text)
+        {
+            textMeshPro.text = tooltipManager.GetKeywordHandler().AddKeywordsToText(text);
         }
 
         public void OnPointerMove(PointerEventData eventData)
