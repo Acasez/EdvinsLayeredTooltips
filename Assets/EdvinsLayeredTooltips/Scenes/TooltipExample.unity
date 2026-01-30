@@ -169,10 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6f863c2fffb794181872dc761927cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
-  tooltipManager: {fileID: 1433224111}
-  linkedKeyword: {fileID: 0}
-  tooltipText: This is a tooltip. You can hover over keywords
   tooltipType: 0
+  tooltipText: This is a tooltip. You can hover over keywords
+  linkedKeyword: {fileID: 0}
   tooltipTriggerTime: 0
 --- !u!114 &773736697
 MonoBehaviour:
@@ -326,14 +325,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1353487337}
     m_Modifications:
-    - target: {fileID: 1414834584552696733, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
-      propertyPath: keywordHandler
-      value: 
-      objectReference: {fileID: 1433224110}
-    - target: {fileID: 1414834584552696733, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
-      propertyPath: tooltipWindowStyle
-      value: 
-      objectReference: {fileID: 11400000, guid: d44a623d31653564cb92e33f7599d6ff, type: 2}
     - target: {fileID: 6931499719455827684, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -382,6 +373,14 @@ PrefabInstance:
       propertyPath: tooltipWindowStyle
       value: 
       objectReference: {fileID: 11400000, guid: d44a623d31653564cb92e33f7599d6ff, type: 2}
+    - target: {fileID: 7148879821461226262, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
+      propertyPath: keywords.Array.size
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7148879821461226262, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
+      propertyPath: 'keywords.Array.data[34]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 985b7cbac4309fc47a032fcc59531a5e, type: 2}
     - target: {fileID: 7824150223451634638, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
       propertyPath: m_Name
       value: TooltipManager
@@ -396,17 +395,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6931499719455827684, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
   m_PrefabInstance: {fileID: 1433224108}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1433224110 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7148879821461226262, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
-  m_PrefabInstance: {fileID: 1433224108}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cbc7ed018011dd49b1af4941cff830f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1433224111 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1414834584552696733, guid: afc9e52acbaa5604ba3b12b5efd5ee34, type: 3}
@@ -547,10 +535,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6f863c2fffb794181872dc761927cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
-  tooltipManager: {fileID: 1433224111}
-  linkedKeyword: {fileID: 0}
-  tooltipText: Keyword Handling is hard
   tooltipType: 0
+  tooltipText: Keyword Handling is hard
+  linkedKeyword: {fileID: 0}
   tooltipTriggerTime: 0
 --- !u!114 &1608503635
 MonoBehaviour:
@@ -640,10 +627,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6f863c2fffb794181872dc761927cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
-  tooltipManager: {fileID: 1433224111}
-  linkedKeyword: {fileID: 0}
-  tooltipText: Playing cards is very important in the Mariestad Climate Game
   tooltipType: 0
+  tooltipText: Playing cards is very important in the Mariestad Climate Game
+  linkedKeyword: {fileID: 0}
   tooltipTriggerTime: 0
 --- !u!114 &1800946792
 MonoBehaviour:
@@ -809,10 +795,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6f863c2fffb794181872dc761927cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
-  tooltipManager: {fileID: 0}
-  linkedKeyword: {fileID: 11400000, guid: 6f3da63bb8f529445b842433cba49a2b, type: 2}
-  tooltipText: 
   tooltipType: 2
+  tooltipText: 
+  linkedKeyword: {fileID: 11400000, guid: 6f3da63bb8f529445b842433cba49a2b, type: 2}
   tooltipTriggerTime: 0.5
 --- !u!114 &1868814978
 MonoBehaviour:

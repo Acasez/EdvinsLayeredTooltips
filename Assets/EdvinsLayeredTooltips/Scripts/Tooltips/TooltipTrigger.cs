@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 #if ENABLE_INPUT_SYSTEM
@@ -12,17 +11,22 @@ namespace LayeredTooltips
     {
         public enum TooltipType
         {
-            UI,
-            KeywordTrigger,
+            Static,
+            TextWithTooltips,
             LinkedKeyword
         }
-        [Header("References")]
-        [SerializeField] TooltipManager tooltipManager;
+        TooltipManager tooltipManager;
+        [Header("Tooltip Type")]
+        [SerializeField] TooltipType tooltipType;
+
+        [Header("Tooltip Text")]
+        [TextArea][SerializeField] string tooltipText;
+
+        [Header("Linked Keyword")]
         [SerializeField] KeywordScriptableObject linkedKeyword;
 
         [Header("Variables")]
-        [SerializeField] string tooltipText;
-        [SerializeField] TooltipType tooltipType;
+        [Tooltip("How long until tooltip appears")]
         [SerializeField] float tooltipTriggerTime = 0.5f;
 
         private void Start()
@@ -39,7 +43,7 @@ namespace LayeredTooltips
         }
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (tooltipType == TooltipType.KeywordTrigger)
+            if (tooltipType == TooltipType.TextWithTooltips)
             {
                 return; //Triggered by the KeywordTooltip script
             }
@@ -92,8 +96,7 @@ namespace LayeredTooltips
                 return false; // No tooltip exists
             }
 
-            RectTransform tooltipRect = tooltipWindow.GetComponent<RectTransform>();
-            if (tooltipRect == null)
+            if (!tooltipWindow.TryGetComponent<RectTransform>(out var tooltipRect))
             {
                 return false; // No RectTransform found
             }

@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: Hover
   m_EditorClassIdentifier: Assembly-CSharp::KeywordScriptableObject
   keywordName: Hover
+  keywordType: 0
   wordings:
   - Hover
   - Hovered
   - Hovering
   - Hover over text
   icon: 
+  negativeIcon: 
   tooltipText: Hovering is the act of placing your mouse over a keyword in text
+  textWithTooltips: 
+  specificTooltipStyle: {fileID: 0}

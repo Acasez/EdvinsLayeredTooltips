@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Keyword
   m_EditorClassIdentifier: Assembly-CSharp::KeywordScriptableObject
   keywordName: Keyword
+  keywordType: 0
   wordings:
   - Keyword
   - Keywords
   icon: 
+  negativeIcon: 
   tooltipText: Keywords are terms you that become underlined in texts and have a
     tooltip when hovered
+  textWithTooltips: 
+  specificTooltipStyle: {fileID: 0}

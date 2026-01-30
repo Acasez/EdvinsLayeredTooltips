@@ -11,23 +11,19 @@ namespace LayeredTooltips
     public class TooltipManager : MonoBehaviour
     {
         [Header("Settings")]
-        [Tooltip("How many tooltips there should be. I would suggest like 5, but any amount is fine.")]
+        [Tooltip("How many tooltips there should be. I would suggest like 5, but any amount is fine. You could go beyond 25 in code if you want")]
         [SerializeField][Range(1, 25)] int tooltipAmount = 5;
-        [SerializeField] List<Tooltip> tooltips;
         [SerializeField] bool mobile;
         [SerializeField] TooltipWindow tooltipWindowPrefab;
 
         [Header("Canvas")]
-        [SerializeField] Canvas canvas;
-        [SerializeField] RectTransform canvasRectTransform;
+        Canvas canvas;
+        RectTransform canvasRectTransform;
 
         [Header("Keywords")]
         [SerializeField] KeywordHandler keywordHandler;
 
-        [Header("Tooltip Text Settings")]
-        /* Might wanna keep these for later adjustments
-        [SerializeField] int lineWidth = 200; // Maximum width of the tooltip text
-        [SerializeField] int borderSize = 8; // Size of the border around the tooltip*/
+        [Header("Tooltip Window Settings")]
         [Tooltip("Margin from the edge of the screen")]
         [SerializeField] int edgeOfScreenMargin = 15;
         [Tooltip("How far down the tooltip is from mouse position")]
@@ -37,6 +33,9 @@ namespace LayeredTooltips
 
         [Header("Decoration")]
         [SerializeField] TooltipWindowStyle tooltipWindowStyle;
+
+        [Header("Ingame Tooltips")]
+        [SerializeField] List<Tooltip> tooltips;
 
         [Serializable]
         public class Tooltip

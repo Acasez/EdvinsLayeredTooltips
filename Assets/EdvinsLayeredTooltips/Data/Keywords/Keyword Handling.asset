@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Keyword Handling
   m_EditorClassIdentifier: Assembly-CSharp::KeywordScriptableObject
   keywordName: Keyword Handling
+  keywordType: 0
   wordings:
   - Keyword Handling
   - KeywordHandling
   icon: 
-  tooltipText: The thing can't handle multi-word keywords currently
+  negativeIcon: 
+  tooltipText: Keyword handling is done in the TooltipExample scene, if you want
+    examples on what you can do
+  textWithTooltips: 
+  specificTooltipStyle: {fileID: 0}
