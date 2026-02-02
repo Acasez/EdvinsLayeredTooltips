@@ -168,6 +168,7 @@ MonoBehaviour:
   tooltipSizeDownwardFactor: 0.4
   tooltipWindowStyle: {fileID: 11400000, guid: d44a623d31653564cb92e33f7599d6ff, type: 2}
   tooltips: []
+  activeButton: 2
 --- !u!1001 &1995254251847860522
 PrefabInstance:
   m_ObjectHideFlags: 0

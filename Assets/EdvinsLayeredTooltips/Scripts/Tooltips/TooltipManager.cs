@@ -10,6 +10,8 @@ namespace LayeredTooltips
 {
     public class TooltipManager : MonoBehaviour
     {
+        public enum MouseButton { Left, Right, Middle, SideBack, SideForward }
+
         [Header("Settings")]
         [Tooltip("How many tooltips there should be. I would suggest like 5, but any amount is fine. You could go beyond 25 in code if you want")]
         [SerializeField][Range(1, 25)] int tooltipAmount = 5;
@@ -36,6 +38,8 @@ namespace LayeredTooltips
 
         [Header("Ingame Tooltips")]
         [SerializeField] List<Tooltip> tooltips;
+
+        [SerializeField] private MouseButton activeButton = MouseButton.Middle;
 
         [Serializable]
         public class Tooltip
@@ -73,15 +77,28 @@ namespace LayeredTooltips
 
         private void Update()
         {
-            //This setup looks a bit ugly but works weather your using the the old or new input system.
-            bool isRightClick =
-#if ENABLE_LEGACY_INPUT_MANAGER
-                Input.GetMouseButtonDown(2);
-#else
-            Mouse.current != null && Mouse.current.middleButton.wasPressedThisFrame;
-#endif
+            bool isButtonPressed = false;
 
-            if (isRightClick)
+            switch (activeButton)
+            {
+                case MouseButton.Left:
+                    isButtonPressed = GetMouseButtonDown(0);
+                    break;
+                case MouseButton.Right:
+                    isButtonPressed = GetMouseButtonDown(1);
+                    break;
+                case MouseButton.Middle:
+                    isButtonPressed = GetMouseButtonDown(2);
+                    break;
+                case MouseButton.SideBack:
+                    isButtonPressed = GetMouseButtonDown(3);
+                    break;
+                case MouseButton.SideForward:
+                    isButtonPressed = GetMouseButtonDown(4);
+                    break;
+            }
+
+            if (isButtonPressed)
             {
                 Tooltip topTooltip = GetTopTooltip();
                 if (topTooltip != null)
@@ -90,6 +107,30 @@ namespace LayeredTooltips
                 }
             }
         }
+
+        private bool GetMouseButtonDown(int button)
+        {
+#if ENABLE_LEGACY_INPUT_MANAGER
+            return Input.GetMouseButtonDown(button);
+#else
+        return Mouse.current != null && GetInputSystemButton(Mouse.current, button);
+#endif
+        }
+
+#if ENABLE_LEGACY_INPUT_MANAGER
+        private bool GetInputSystemButton(Mouse mouse, int button)
+        {
+            switch (button)
+            {
+                case 0: return mouse.leftButton.wasPressedThisFrame;
+                case 1: return mouse.rightButton.wasPressedThisFrame;
+                case 2: return mouse.middleButton.wasPressedThisFrame;
+                case 3: return mouse.backButton.wasPressedThisFrame;
+                case 4: return mouse.forwardButton.wasPressedThisFrame;
+                default: return false;
+            }
+        }
+#endif
         public List<KeywordScriptableObject> GetKeywords()
         {
             return keywordHandler.keywords;
