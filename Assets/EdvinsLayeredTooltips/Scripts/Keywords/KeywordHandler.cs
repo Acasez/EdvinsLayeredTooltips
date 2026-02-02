@@ -30,6 +30,10 @@ namespace LayeredTooltips
         [SerializeField] TooltipManager tooltipManager;
         TooltipWindowStyle tooltipWindowStyle;
 
+        [Header("Settings")]
+        [SerializeField] bool repeatTooltips;
+        [SerializeField] bool iconsInFrontOfKeywords;
+
         [Serializable]
         public class Wording
         {
@@ -82,7 +86,7 @@ namespace LayeredTooltips
             {
                 if (keyword.GetTextWithTooltip() != string.Empty)
                 {
-                    Debug.Log("Tooltip with keyword all setup, using that");
+                    //Debug.Log("Tooltip with keyword all setup, using that");
                     return keyword.GetTextWithTooltip();
                 }
                 activeKeywords.Add(keyword);
@@ -91,7 +95,7 @@ namespace LayeredTooltips
             for (int wordingIndex = 0; wordingIndex < AllWordings.Count; wordingIndex++)
             {
                 Wording currentWording = AllWordings[wordingIndex];
-                if (activeKeywords.Contains(currentWording.keyword))
+                if (activeKeywords.Contains(currentWording.keyword) && repeatTooltips == false)
                 {
                     continue;
                 }
@@ -121,7 +125,10 @@ namespace LayeredTooltips
                         string modifier = match.Groups[1].Value; // e.g., "+2 ", "-1 "
                         string matchedText = match.Groups[2].Value; // The keyword itself
                         string linkId = currentWording.keyword.keywordName;
-                        activeKeywords.Add(currentWording.keyword);
+                        if (repeatTooltips == false)
+                        {
+                            activeKeywords.Add(currentWording.keyword);
+                        }
 
                         // Check if the modifier is negative
                         bool isNegative = !string.IsNullOrEmpty(modifier) && modifier.Trim().StartsWith("-");
@@ -139,14 +146,7 @@ namespace LayeredTooltips
                         string beforeMatch = currentSegment[..match.Index];
                         string afterMatch = currentSegment[(match.Index + match.Length)..];
 
-                        if (createTooltips)
-                        {
-                            currentSegment = beforeMatch + modifier + "<link=\"" + linkId + "\">" + tooltipWindowStyle.openingText + matchedText + tooltipWindowStyle.closingText + "</link>" + icon + afterMatch;
-                        }
-                        else
-                        {
-                            currentSegment = beforeMatch + modifier + tooltipWindowStyle.openingText + matchedText + tooltipWindowStyle.closingText + icon + afterMatch;
-                        }
+                        currentSegment = BuildSegment(beforeMatch, modifier, matchedText, icon, afterMatch, createTooltips, iconsInFrontOfKeywords, linkId);
                     }
                     processedSegments.Add(currentSegment);
                 }
@@ -157,6 +157,41 @@ namespace LayeredTooltips
                 keyword.StoreTextWithTooltip(text);
             }
             return text;
+        }
+
+        private string BuildSegment(string beforeMatch, string modifier, string matchedText, string icon, string afterMatch, bool createTooltips, bool iconsInFrontOfKeywords, string linkId)
+        {
+            var segment = new System.Text.StringBuilder();
+
+            segment.Append(beforeMatch);
+            segment.Append(modifier);
+
+            if (iconsInFrontOfKeywords)
+            {
+                segment.Append(icon);
+            }
+
+            if (createTooltips)
+            {
+                segment.Append($"<link=\"{linkId}\">");
+            }
+
+            segment.Append(tooltipWindowStyle.openingText);
+            segment.Append(matchedText);
+            segment.Append(tooltipWindowStyle.closingText);
+
+            if (createTooltips)
+            {
+                segment.Append("</link>");
+            }
+
+            if (!iconsInFrontOfKeywords)
+            {
+                segment.Append(icon);
+            }
+
+            segment.Append(afterMatch);
+            return segment.ToString();
         }
 
         public List<(string text, bool isInBrackets)> SplitTextIntoSegments(string text)
