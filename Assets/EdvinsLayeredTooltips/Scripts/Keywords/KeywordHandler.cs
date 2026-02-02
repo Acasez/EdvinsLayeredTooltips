@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -31,7 +32,6 @@ namespace LayeredTooltips
         TooltipWindowStyle tooltipWindowStyle;
 
         [Header("Settings")]
-        [SerializeField] bool repeatTooltips;
         [SerializeField] bool iconsInFrontOfKeywords;
 
         [Serializable]
@@ -95,16 +95,16 @@ namespace LayeredTooltips
             for (int wordingIndex = 0; wordingIndex < AllWordings.Count; wordingIndex++)
             {
                 Wording currentWording = AllWordings[wordingIndex];
-                if (activeKeywords.Contains(currentWording.keyword) && repeatTooltips == false)
+                if (activeKeywords.Contains(currentWording.keyword)/* && repeatTooltips == false*/) //Don't have a function that allows for repeats of the same tooltips in a segment right now. Could add later if desired
                 {
                     continue;
                 }
 
-                var segments = SplitTextIntoSegments(text); //Split up text into segments split by <> brackets
-                var processedSegments = new List<string>();
+                List<(string, bool)> segments = SplitTextIntoSegments(text); //Split up text into segments split by <> brackets
+                List<string> processedSegments = new();
 
                 //Go through those parts and pattern match
-                foreach (var (segment, isInBrackets) in segments)
+                foreach ((string segment, bool isInBrackets) in segments)
                 {
                     string currentSegment = segment;
                     if (string.IsNullOrWhiteSpace(currentSegment))
@@ -118,17 +118,15 @@ namespace LayeredTooltips
                     }
 
                     string pattern = $@"([+-]?\d+\s+)?\b({Regex.Escape(currentWording.wording)})\b";
-                    var match = Regex.Match(currentSegment, pattern, RegexOptions.IgnoreCase);
+                    Match match = Regex.Match(currentSegment, pattern, RegexOptions.IgnoreCase);
 
                     if (match.Success)
                     {
                         string modifier = match.Groups[1].Value; // e.g., "+2 ", "-1 "
                         string matchedText = match.Groups[2].Value; // The keyword itself
                         string linkId = currentWording.keyword.keywordName;
-                        if (repeatTooltips == false)
-                        {
-                            activeKeywords.Add(currentWording.keyword);
-                        }
+
+                        activeKeywords.Add(currentWording.keyword);
 
                         // Check if the modifier is negative
                         bool isNegative = !string.IsNullOrEmpty(modifier) && modifier.Trim().StartsWith("-");
@@ -161,7 +159,7 @@ namespace LayeredTooltips
 
         private string BuildSegment(string beforeMatch, string modifier, string matchedText, string icon, string afterMatch, bool createTooltips, bool iconsInFrontOfKeywords, string linkId)
         {
-            var segment = new System.Text.StringBuilder();
+            StringBuilder segment = new();
 
             segment.Append(beforeMatch);
             segment.Append(modifier);
@@ -196,7 +194,7 @@ namespace LayeredTooltips
 
         public List<(string text, bool isInBrackets)> SplitTextIntoSegments(string text)
         {
-            var segments = new List<(string, bool)>();
+            List<(string, bool)> segments = new();
             if (string.IsNullOrWhiteSpace(text))
             {
                 return segments;
@@ -204,7 +202,7 @@ namespace LayeredTooltips
 
             int start = 0;
             bool inBrackets = false;
-            var stack = new Stack<string>(); // Tracks the type of opening tag
+            Stack<string> stack = new(); // Tracks the type of opening tag
 
             for (int i = 0; i < text.Length; i++)
             {

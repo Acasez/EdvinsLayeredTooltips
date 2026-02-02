@@ -96,7 +96,7 @@ namespace LayeredTooltips
                 return false; // No tooltip exists
             }
 
-            if (!tooltipWindow.TryGetComponent<RectTransform>(out var tooltipRect))
+            if (!tooltipWindow.TryGetComponent(out RectTransform tooltipRect))
             {
                 return false; // No RectTransform found
             }
