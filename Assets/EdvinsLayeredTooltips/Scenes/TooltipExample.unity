@@ -144,17 +144,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381544265}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1667206185}
-  m_Father: {fileID: 1353487337}
+  m_Father: {fileID: 1836745933}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 527, y: -257}
+  m_AnchoredPosition: {x: 527, y: -747}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &381544267
@@ -386,7 +386,6 @@ RectTransform:
   - {fileID: 1800946790}
   - {fileID: 1836745933}
   - {fileID: 1433224109}
-  - {fileID: 381544266}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -664,9 +663,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1667206185}
   - component: {fileID: 1667206189}
-  - component: {fileID: 1667206188}
   - component: {fileID: 1667206187}
   - component: {fileID: 1667206186}
+  - component: {fileID: 1667206188}
   m_Layer: 5
   m_Name: TextWithKeywords
   m_TagString: Untagged
@@ -722,7 +721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LayeredTooltips.KeywordTooltips
   specificTooltipStyle: {fileID: 0}
-  presetTextField: 0
+  presetTextField: 1
 --- !u!114 &1667206188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,6 +946,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1868814976}
+  - {fileID: 381544266}
   m_Father: {fileID: 1353487337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}

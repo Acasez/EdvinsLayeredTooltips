@@ -87,7 +87,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
@@ -160,16 +160,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipAmount: 5
-  tooltips: []
   mobile: 0
   tooltipWindowPrefab: {fileID: 5895633090016677584, guid: 8f80fc56a3258094fb787772bfa33bb6, type: 3}
-  canvas: {fileID: 7297184317425446455}
-  canvasRectTransform: {fileID: 1991531275081471986}
   keywordHandler: {fileID: 7148879821461226262}
   edgeOfScreenMargin: 15
   tipNudge: 30
   tooltipSizeDownwardFactor: 0.4
   tooltipWindowStyle: {fileID: 11400000, guid: d44a623d31653564cb92e33f7599d6ff, type: 2}
+  tooltips: []
 --- !u!1001 &1995254251847860522
 PrefabInstance:
   m_ObjectHideFlags: 0
