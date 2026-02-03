@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace LayeredTooltips
+namespace NestedTooltips
 {
     public class KeywordHandler : MonoBehaviour
     {

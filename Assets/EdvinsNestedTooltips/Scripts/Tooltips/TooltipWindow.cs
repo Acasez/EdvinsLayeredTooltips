@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace LayeredTooltips
+namespace NestedTooltips
 {
     public class TooltipWindow : MonoBehaviour, IPointerExitHandler
     {

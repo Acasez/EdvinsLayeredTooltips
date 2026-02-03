@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-namespace LayeredTooltips
+namespace NestedTooltips
 {
     public class TooltipManager : MonoBehaviour
     {
@@ -240,7 +240,7 @@ namespace LayeredTooltips
 
             // Calculate the desired position (adjust for tooltip pivot and offset)
             float tipDownDistance = (tooltipHeight * tooltipSizeDownwardFactor) + tipNudge;
-            if (mobile) tipDownDistance *= -1f;
+            if (mobile) tipDownDistance *= -1f; //When playing on mobile you will generally want the tooltips to appear above where you hover so your finger doesn't obscure it
             Vector2 desiredPosition = new(localPosition.x, localPosition.y - tipDownDistance);
 
             // Get canvas bounds (already in local space)

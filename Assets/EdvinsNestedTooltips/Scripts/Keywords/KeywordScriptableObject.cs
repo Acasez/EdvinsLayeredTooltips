@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static LayeredTooltips.KeywordHandler;
+using static NestedTooltips.KeywordHandler;
 
-namespace LayeredTooltips
+namespace NestedTooltips
 {
     [CreateAssetMenu(fileName = "NewKeyword", menuName = "ScriptableObjects/Keyword", order = 1)]
     public class KeywordScriptableObject : ScriptableObject

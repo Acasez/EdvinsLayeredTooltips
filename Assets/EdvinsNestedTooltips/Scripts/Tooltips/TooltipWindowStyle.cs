@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LayeredTooltips
+namespace NestedTooltips
 {
     [CreateAssetMenu(fileName = "NewKeyword", menuName = "ScriptableObjects/TooltipWindowStyle", order = 1)]
     public class TooltipWindowStyle : ScriptableObject
