@@ -10,16 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e088768a6f999724ba887b703325f3a9, type: 3}
-  m_Name: Italic
+  m_Name: CK3 Style
   m_EditorClassIdentifier: Assembly-CSharp::TooltipWindowStyle
-  styleName: Bold
+  styleName: CK3 Style
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.8}
   defaultBorderColor: {r: 1, g: 1, b: 1, a: 0.29803923}
   lockedBorderColor: {r: 1, g: 0.78468615, b: 0, a: 1}
   textColor: {r: 1, g: 1, b: 1, a: 1}
-  keywordColor: {r: 1, g: 1, b: 1, a: 1}
-  bold: 0
-  italic: 1
+  showTitle: 1
+  titleTextSize: 125
+  typeTextSize: 110
+  keywordIconNextToTitle: 1
+  showIcons: 0
+  iconPlacement: 1
+  keywordColor: {r: 0.40392157, g: 0.9764706, b: 1, a: 1}
+  bold: 1
+  italic: 0
   underline: 0
-  openingText: <i>
-  closingText: </i>
+  openingText: <color=#67F9FF><b>
+  closingText: </color></b>

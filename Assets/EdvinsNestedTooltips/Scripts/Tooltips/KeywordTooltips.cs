@@ -10,7 +10,6 @@ namespace LayeredTooltips
 {
     public class KeywordTooltips : MonoBehaviour, IPointerMoveHandler, IPointerExitHandler
     {
-        
         private int lastLinkIndex = -1;
         
         TextMeshProUGUI textMeshPro;
@@ -54,7 +53,7 @@ namespace LayeredTooltips
 
         public void AddKeywordsToText(string text)
         {
-            textMeshPro.text = tooltipManager.GetKeywordHandler().AddKeywordsToText(text);
+            textMeshPro.text = tooltipManager.GetKeywordHandler().AddKeywordsToText(text, true, null, specificTooltipStyle);
         }
 
         public void OnPointerMove(PointerEventData eventData)

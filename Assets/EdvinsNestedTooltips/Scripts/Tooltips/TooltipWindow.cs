@@ -64,7 +64,7 @@ namespace LayeredTooltips
                     tooltipTextUI.text += "<size=" + thisTooltipStyle.typeTextSize + "%>" + keyword.keywordType + "<size=100%>\n";
                 }
             }
-            tooltipTextUI.text += keywordHandler.AddKeywordsToText(tooltipText, true, keyword);
+            tooltipTextUI.text += keywordHandler.AddKeywordsToText(tooltipText, true, keyword, thisTooltipStyle);
             tooltipTextUI.color = thisTooltipStyle.textColor;
             SetTooltipSize();
         }

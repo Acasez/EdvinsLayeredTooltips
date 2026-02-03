@@ -20,6 +20,8 @@ namespace LayeredTooltips
         [Header("Text")]
         [Tooltip("Color of the text")]
         public Color textColor;
+
+        [Header("Title")]
         [Tooltip("Should the title of keywords be shown above the text")]
         public bool showTitle = true;
         [Tooltip("How large, in % should the keyword title text be")]
@@ -28,6 +30,12 @@ namespace LayeredTooltips
         public int typeTextSize = 110;
         [Tooltip("If title is displayed, should the icon be next to it?")]
         public bool keywordIconNextToTitle = true;
+
+        [Header("Icons")]
+        [Tooltip("Should the the keyword icons display next to the text")]
+        public bool showIcons;
+        [Tooltip("Where should the icons appear, before or after the keyword.")]
+        public KeywordHandler.IconPlacement iconPlacement;
 
         [Header("Keywords")]
         [Tooltip("Color of the keywords")]

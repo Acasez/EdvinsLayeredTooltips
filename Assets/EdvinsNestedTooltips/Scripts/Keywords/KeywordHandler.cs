@@ -19,6 +19,13 @@ namespace LayeredTooltips
             CardType,
             Location
         }
+        public enum IconPlacement 
+        { 
+            Before, 
+            After, 
+            None,
+            Both
+        }
 
         [Header("Lists")]
         [Tooltip("The keywords used in the the game. Needs to be updated when you add new keywords.")]
@@ -30,9 +37,6 @@ namespace LayeredTooltips
         [Header("References")]
         [SerializeField] TooltipManager tooltipManager;
         TooltipWindowStyle tooltipWindowStyle;
-
-        [Header("Settings")]
-        [SerializeField] bool iconsInFrontOfKeywords;
 
         [Serializable]
         public class Wording
@@ -49,6 +53,11 @@ namespace LayeredTooltips
             {
                 Debug.LogWarning("No tooltipManager!");
             }
+            GetGlobalStyle();
+        }
+
+        void GetGlobalStyle()
+        {
             tooltipWindowStyle = tooltipManager.GetTooltipDecoration();
         }
 
@@ -70,15 +79,20 @@ namespace LayeredTooltips
 
         public string AddKeywordsToText(string text)
         {
-            return AddKeywordsToText(text, true, null);
+            return AddKeywordsToText(text, true, null, null);
         }
 
-        public string AddKeywordsToText(string text, bool createTooltips, KeywordScriptableObject keyword)
+        public string AddKeywordsToText(string text, bool createTooltips, KeywordScriptableObject keyword, TooltipWindowStyle style)
         {
             if (AllWordings.Count == 0)
             {
                 Debug.LogWarning("No wordings, you might have missed to add them");
                 return text;
+            }
+
+            if (style != null)
+            {
+                tooltipWindowStyle = style;
             }
 
             List<KeywordScriptableObject> activeKeywords = new();
@@ -144,7 +158,7 @@ namespace LayeredTooltips
                         string beforeMatch = currentSegment[..match.Index];
                         string afterMatch = currentSegment[(match.Index + match.Length)..];
 
-                        currentSegment = BuildSegment(beforeMatch, modifier, matchedText, icon, afterMatch, createTooltips, iconsInFrontOfKeywords, linkId);
+                        currentSegment = BuildSegment(beforeMatch, modifier, matchedText, icon, afterMatch, createTooltips, linkId);
                     }
                     processedSegments.Add(currentSegment);
                 }
@@ -154,17 +168,18 @@ namespace LayeredTooltips
             {
                 keyword.StoreTextWithTooltip(text);
             }
+            GetGlobalStyle();
             return text;
         }
 
-        private string BuildSegment(string beforeMatch, string modifier, string matchedText, string icon, string afterMatch, bool createTooltips, bool iconsInFrontOfKeywords, string linkId)
+        private string BuildSegment(string beforeMatch, string modifier, string matchedText, string icon, string afterMatch, bool createTooltips, string linkId)
         {
             StringBuilder segment = new();
 
             segment.Append(beforeMatch);
             segment.Append(modifier);
 
-            if (iconsInFrontOfKeywords)
+            if (tooltipWindowStyle.iconPlacement == IconPlacement.Before || tooltipWindowStyle.iconPlacement == IconPlacement.Both)
             {
                 segment.Append(icon);
             }
@@ -183,7 +198,7 @@ namespace LayeredTooltips
                 segment.Append("</link>");
             }
 
-            if (!iconsInFrontOfKeywords)
+            if (tooltipWindowStyle.iconPlacement == IconPlacement.After || tooltipWindowStyle.iconPlacement == IconPlacement.Both)
             {
                 segment.Append(icon);
             }
