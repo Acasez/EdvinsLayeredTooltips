@@ -39,7 +39,7 @@ namespace NestedTooltips
         [Header("Ingame Tooltips")]
         [SerializeField] List<Tooltip> tooltips;
 
-        [SerializeField] private MouseButton activeButton = MouseButton.Middle;
+        [SerializeField] private MouseButton lockUnlockButton = MouseButton.Middle;
 
         [Serializable]
         public class Tooltip
@@ -79,7 +79,7 @@ namespace NestedTooltips
         {
             bool isButtonPressed = false;
 
-            switch (activeButton)
+            switch (lockUnlockButton)
             {
                 case MouseButton.Left:
                     isButtonPressed = GetMouseButtonDown(0);
@@ -176,8 +176,6 @@ namespace NestedTooltips
                     }
                 }
             }
-
-            Debug.Log("No available tooltips");
             return null;
         }
 
@@ -193,17 +191,14 @@ namespace NestedTooltips
                     }
                 }
             }
-
-            Debug.Log("No available tooltips");
             return null;
         }
 
 
-        public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition, KeywordScriptableObject keyword)
+        public void SetupTooltipWindow(TooltipTrigger caller, string message, Vector3 screenPosition, KeywordScriptableObject keyword, TooltipWindowStyle specificTooltipStyle)
         {
             if (GetCallersTooltip(caller) != null)
             {
-                Debug.Log("Caller already has tooltip");
                 return;
             }
 
@@ -215,11 +210,10 @@ namespace NestedTooltips
 
             thisTooltip.tooltipWindow.gameObject.SetActive(true);
             thisTooltip.tooltipWindow.SetReferences(this, thisTooltip);
-            thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler, keyword);
+            thisTooltip.tooltipWindow.SetTooltipText(message, keywordHandler, keyword, specificTooltipStyle);
 
             RectTransform tooltipRect = thisTooltip.tooltipWindow.GetComponent<RectTransform>();
             Vector2 clampedPos = GetPositionInsideCanvas(tooltipRect, screenPosition);
-            Debug.Log("Clamped Pos: " + clampedPos);
             thisTooltip.tooltipWindow.transform.localPosition = clampedPos;
         }
 
@@ -292,7 +286,6 @@ namespace NestedTooltips
                 }
                 if (tooltips[i].active)
                 {
-                    Debug.Log("Removing tooltip " + i);
                     RemoveTooltip(tooltips[i], true);
                 }
             }

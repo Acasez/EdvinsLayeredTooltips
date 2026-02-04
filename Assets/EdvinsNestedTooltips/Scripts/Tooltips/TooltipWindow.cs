@@ -34,7 +34,7 @@ namespace NestedTooltips
             tooltipWindowStyle = tooltipManager.GetTooltipDecoration();
         }
 
-        public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler, KeywordScriptableObject keyword)
+        public void SetTooltipText(string tooltipText, KeywordHandler keywordHandler, KeywordScriptableObject keyword, TooltipWindowStyle specificTooltipStyle)
         {
             tooltipTextUI.text = "";
 
@@ -42,14 +42,17 @@ namespace NestedTooltips
             if (keyword != null && keyword.specificTooltipStyle != null)
             {
                 thisTooltipStyle = keyword.specificTooltipStyle;
-                tooltipBackground.color = thisTooltipStyle.backgroundColor;
-                Debug.Log("Using specific tooltip style");
+            }
+            else if (specificTooltipStyle != null)
+            {
+                thisTooltipStyle = specificTooltipStyle;
             }
             else
             {
                 thisTooltipStyle = tooltipWindowStyle;
-                tooltipBackground.color = thisTooltipStyle.backgroundColor;
+                
             }
+            tooltipBackground.color = thisTooltipStyle.backgroundColor;
 
             if (keyword != null && thisTooltipStyle.showTitle == true && !string.IsNullOrWhiteSpace(keyword.keywordName))
             {

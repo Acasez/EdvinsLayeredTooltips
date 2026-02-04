@@ -20,5 +20,6 @@ MonoBehaviour:
   icon: Positive City
   negativeIcon: Negative City
   tooltipText: City opinion is one of the two opinion tracks alongside rural opinion
-  textWithTooltips: 
-  specificTooltipStyle: {fileID: 11400000, guid: 79b7a8633b0bf8548a4274338c4d0dd5, type: 2}
+  textWithTooltips: City opinion is one of the two opinion tracks alongside <link="Rural
+    Opionion"><color=#FF9500>rural opinion</color></link><sprite name="Positive Rural">
+  specificTooltipStyle: {fileID: 0}

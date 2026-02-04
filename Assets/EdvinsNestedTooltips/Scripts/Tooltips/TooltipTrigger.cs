@@ -28,6 +28,8 @@ namespace NestedTooltips
         [Header("Variables")]
         [Tooltip("How long until tooltip appears")]
         [SerializeField] float tooltipTriggerTime = 0.5f;
+        [Tooltip("Only if you want the tooltip from this trigger here to a specific TooltipStyle")]
+        [SerializeField] TooltipWindowStyle specificTooltipStyle;
 
         private void Awake()
         {
@@ -114,7 +116,7 @@ namespace NestedTooltips
             {
                 message = tooltipText;
             }
-            tooltipManager.SetupTooltipWindow(this, message, location, keyword);
+            tooltipManager.SetupTooltipWindow(this, message, location, keyword, specificTooltipStyle);
         }
 
         public bool HasToolTip()
@@ -128,7 +130,7 @@ namespace NestedTooltips
             }
             else
             {
-                Debug.Log("Tooltip Manager not set");
+                Debug.LogWarning("Tooltip Manager not set");
             }
 
             return false;

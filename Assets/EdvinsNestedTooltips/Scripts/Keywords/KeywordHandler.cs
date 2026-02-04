@@ -100,7 +100,6 @@ namespace NestedTooltips
             {
                 if (keyword.GetTextWithTooltip() != string.Empty)
                 {
-                    //Debug.Log("Tooltip with keyword all setup, using that");
                     return keyword.GetTextWithTooltip();
                 }
                 activeKeywords.Add(keyword);
@@ -177,7 +176,7 @@ namespace NestedTooltips
             StringBuilder segment = new();
 
             segment.Append(beforeMatch);
-            segment.Append(modifier);
+            segment.Append(modifier + " ");
 
             if (tooltipWindowStyle.iconPlacement == IconPlacement.Before || tooltipWindowStyle.iconPlacement == IconPlacement.Both)
             {
