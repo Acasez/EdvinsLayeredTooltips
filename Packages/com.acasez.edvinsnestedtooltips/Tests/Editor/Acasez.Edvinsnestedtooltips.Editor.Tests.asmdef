@@ -1,0 +1,14 @@
+{
+    "name": "Acasez.Edvinsnestedtooltips.Editor.Tests",
+    "references": [
+        "Acasez.Edvinsnestedtooltips.Editor",
+        "Acasez.Edvinsnestedtooltips"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

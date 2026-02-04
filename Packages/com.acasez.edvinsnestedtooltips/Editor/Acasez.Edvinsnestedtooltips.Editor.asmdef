@@ -1,0 +1,10 @@
+{
+    "name": "Acasez.Edvinsnestedtooltips.Editor",
+    "references": [
+      "Acasez.Edvinsnestedtooltips"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

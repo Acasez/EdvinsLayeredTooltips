@@ -1,0 +1,11 @@
+{
+    "name": "Acasez.Edvinsnestedtooltips.Tests",
+    "references": [
+        "Acasez.Edvinsnestedtooltips"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
