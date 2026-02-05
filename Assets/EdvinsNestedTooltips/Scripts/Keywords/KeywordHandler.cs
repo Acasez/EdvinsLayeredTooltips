@@ -123,7 +123,7 @@ namespace NestedTooltips
                     if (string.IsNullOrWhiteSpace(currentSegment))
                     {
                         processedSegments.Add(currentSegment);
-                        continue; //Ignore empty segments
+                        continue; //Ignore empty segments, but add the ones with just whitespace
                     }
                     if (isInBrackets)
                     {
@@ -157,16 +157,11 @@ namespace NestedTooltips
 
                         string beforeMatch = currentSegment[..match.Index];
                         string afterMatch = currentSegment[(match.Index + match.Length)..];
-                        Debug.Log("Match is: " + match + ". modifier: " + modifier + "beforematch: " + beforeMatch);
                         currentSegment = BuildSegment(beforeMatch, modifier, matchedText, icon, afterMatch, createTooltips, linkId);
-                        Debug.Log("Current Segment: " + currentSegment);
-                        Debug.Log($"beforeMatch: '{beforeMatch}', matchedText: '{matchedText}', afterMatch: '{afterMatch}'");
                     }
                     processedSegments.Add(currentSegment);
                 }
                 text = string.Join("", processedSegments);
-
-                //text = string.Concat(processedSegments); //Merge Text Together from segments
             }
             if (keyword != null)
             {
@@ -207,7 +202,6 @@ namespace NestedTooltips
                 segment.Append(icon);
             }
 
-            // Append afterMatch as-is, without modifying it
             segment.Append(afterMatch);
             return segment.ToString();
         }
