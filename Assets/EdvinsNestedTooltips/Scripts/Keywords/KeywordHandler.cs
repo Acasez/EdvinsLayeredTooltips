@@ -108,7 +108,7 @@ namespace NestedTooltips
             for (int wordingIndex = 0; wordingIndex < AllWordings.Count; wordingIndex++)
             {
                 Wording currentWording = AllWordings[wordingIndex];
-                if (activeKeywords.Contains(currentWording.keyword)/* && repeatTooltips == false*/) //Don't have a function that allows for repeats of the same tooltips in a segment right now. Could add later if desired
+                if (activeKeywords.Contains(currentWording.keyword))
                 {
                     continue;
                 }
@@ -122,6 +122,7 @@ namespace NestedTooltips
                     string currentSegment = segment;
                     if (string.IsNullOrWhiteSpace(currentSegment))
                     {
+                        processedSegments.Add(currentSegment);
                         continue; //Ignore empty segments
                     }
                     if (isInBrackets)
@@ -156,12 +157,16 @@ namespace NestedTooltips
 
                         string beforeMatch = currentSegment[..match.Index];
                         string afterMatch = currentSegment[(match.Index + match.Length)..];
-
+                        Debug.Log("Match is: " + match + ". modifier: " + modifier + "beforematch: " + beforeMatch);
                         currentSegment = BuildSegment(beforeMatch, modifier, matchedText, icon, afterMatch, createTooltips, linkId);
+                        Debug.Log("Current Segment: " + currentSegment);
+                        Debug.Log($"beforeMatch: '{beforeMatch}', matchedText: '{matchedText}', afterMatch: '{afterMatch}'");
                     }
                     processedSegments.Add(currentSegment);
                 }
-                text = string.Concat(processedSegments); //Merge Text Together from segments
+                text = string.Join("", processedSegments);
+
+                //text = string.Concat(processedSegments); //Merge Text Together from segments
             }
             if (keyword != null)
             {
@@ -176,7 +181,7 @@ namespace NestedTooltips
             StringBuilder segment = new();
 
             segment.Append(beforeMatch);
-            segment.Append(modifier + " ");
+            segment.Append(modifier);
 
             if (tooltipWindowStyle.iconPlacement == IconPlacement.Before || tooltipWindowStyle.iconPlacement == IconPlacement.Both)
             {
@@ -202,6 +207,7 @@ namespace NestedTooltips
                 segment.Append(icon);
             }
 
+            // Append afterMatch as-is, without modifying it
             segment.Append(afterMatch);
             return segment.ToString();
         }

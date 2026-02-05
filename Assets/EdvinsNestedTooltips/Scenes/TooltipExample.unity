@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
   tooltipType: 0
-  tooltipText: This is a tooltip. You can hover over keywords
+  tooltipText: This is a hover card
   linkedKeyword: {fileID: 0}
   tooltipTriggerTime: 0
   specificTooltipStyle: {fileID: 0}
@@ -1129,7 +1129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
   tooltipType: 0
-  tooltipText: Keyword Handling is hard
+  tooltipText: Aqua is the main currency of the game, used for both Auctions and
+    fueling rockets in LEO
   linkedKeyword: {fileID: 0}
   tooltipTriggerTime: 0
   specificTooltipStyle: {fileID: 0}
