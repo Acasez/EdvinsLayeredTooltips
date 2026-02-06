@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using static NestedTooltips.TooltipManager;
 #endif
 
 namespace NestedTooltips
@@ -270,6 +271,9 @@ namespace NestedTooltips
                 return;
             }
             RemoveTooltipsAboveThis(thisTooltip);
+
+            thisTooltip.locked = false;
+            thisTooltip.tooltipWindow.DisplayLockTooltip(false);
 
             thisTooltip.active = false;
             thisTooltip.trigger = null;
