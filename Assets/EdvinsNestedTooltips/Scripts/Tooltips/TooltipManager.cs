@@ -118,7 +118,6 @@ namespace NestedTooltips
 #endif
         }
 
-#if ENABLE_LEGACY_INPUT_MANAGER
         private bool GetInputSystemButton(Mouse mouse, int button)
         {
             switch (button)
@@ -131,7 +130,7 @@ namespace NestedTooltips
                 default: return false;
             }
         }
-#endif
+
         public List<KeywordScriptableObject> GetKeywords()
         {
             return keywordHandler.keywords;
